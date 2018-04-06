@@ -1,0 +1,81 @@
+//Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+#include "app.h"
+
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+MTEA                ICON    DISCARDABLE     "ml.ico"
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+1 VERSIONINFO
+ FILEVERSION 4,0,0,0
+ PRODUCTVERSION 4,0,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0xbL
+#else
+ FILEFLAGS 0xaL
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "CompanyName", "Wizzer Works\0"
+            VALUE "FileDescription", "Magic Lantern Runtime (WIN32)\0"
+            VALUE "FileVersion", "Version 1.0\0"
+            VALUE "InternalName", "Magic Lantern\0"
+            VALUE "LegalCopyright", "Copyright \251 Wizzer Works 2004\0"
+            VALUE "OriginalFilename", "\0"
+            VALUE "ProductName", "Moving Teapot Demo (mtea)\0"
+            VALUE "ProductVersion", "Version 1.0\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_APPNAME             "MTEA"
+    IDS_DESCRIPTION         "Magic Lantern Moving Teapot Title"
+    IDS_PLAYPRINT           "mtea.dpp"
+END

@@ -1,0 +1,8 @@
+#DWP 1.0 ascii
+( ActorDef MleImageActor 
+	( Package com.wizzer.mle.parts.actors ) 
+	( PropertyDef filename MediaRef 
+		( MediaRefClass data MleImageMediaRef )
+	)
+	( RoleSetMapping MleImageRole Mle2dSet )
+) 

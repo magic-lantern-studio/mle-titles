@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="var" path="MLE_ROOT/lib/java/runtime/mlert.jar"/>
+	<classpathentry kind="var" path="MLE_ROOT/lib/java/runtime/parts.jar"/>
+	<classpathentry kind="var" path="MLE_ROOT/lib/java/runtime/actors.jar"/>
+	<classpathentry kind="var" path="MLE_ROOT/lib/java/runtime/roles.jar"/>
+	<classpathentry kind="var" path="MLE_ROOT/lib/java/runtime/props.jar"/>
+	<classpathentry kind="var" path="MLE_ROOT/lib/java/runtime/mrefs.jar"/>
+	<classpathentry kind="var" path="MLE_ROOT/lib/java/runtime/sets.jar"/>
+	<classpathentry kind="var" path="MLE_ROOT/lib/java/runtime/stages.jar"/>
+	<classpathentry kind="var" path="MLE_ROOT/lib/java/runtime/mlmath.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

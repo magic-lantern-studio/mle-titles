@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project xmlns="http://www.wizzerworks.com/MLE/MetaDataSchema" date="2011-01-17T12:32:53.953-07:00" minor_version="0" major_version="1">
+    <project_type version="1.0">MLE_STUDIO</project_type>
+    <title_data version="1.0" digital_workprint="workprints/HelloWorld.dwp" id="HelloWorld">
+        <master_target>
+            <verbose>false</verbose>
+            <type>Java2D</type>
+            <id>HelloWorld.Java2D</id>
+            <digital_playprint>HelloWorld.dpp</digital_playprint>
+            <tools>
+                <destination_directory>src/gen</destination_directory>
+                <code_generation>java</code_generation>
+                <header_package>gen</header_package>
+                <big_endian>true</big_endian>
+                <fixed_point>false</fixed_point>
+                <tags>java2d</tags>
+                <gengroup group_id_file="GroupID.java" actor_id_file="ActorID.java"/>
+                <genmedia bom_file="MediaBom.txt"/>
+                <genscene scene_id_file="SceneID.java"/>
+                <genppscript toc_name="DppTOC" script_file="playprint.tcl"/>
+                <gendpp script_path="src/gen/playprint.tcl" source_directory="src/gen"/>
+            </tools>
+        </master_target>
+    </title_data>
+</project>

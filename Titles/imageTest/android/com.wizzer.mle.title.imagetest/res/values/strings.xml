@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Magic Lantern Image Test Title</string>
+    <string name="logo_filename">wwlogo.png</string>
+</resources>

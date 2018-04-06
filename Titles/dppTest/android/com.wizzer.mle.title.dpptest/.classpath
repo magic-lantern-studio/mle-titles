@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="**/.svn/" kind="src" path="src"/>
+	<classpathentry excluding="**/.svn/" kind="src" path="gen"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="src" path="com.wizzer.mle.math_src"/>
+	<classpathentry kind="src" path="com.wizzer.mle.parts_src"/>
+	<classpathentry kind="src" path="com.wizzer.mle.parts.mrefs_src"/>
+	<classpathentry kind="src" path="com.wizzer.mle.parts.sets_src"/>
+	<classpathentry kind="src" path="com.wizzer.mle.runtime_src"/>
+	<classpathentry kind="src" path="com.wizzer.mle.parts.roles_src"/>
+	<classpathentry kind="src" path="com.wizzer.mle.parts.actors_src"/>
+	<classpathentry kind="src" path="com.wizzer.mle.parts.stages_src"/>
+	<classpathentry kind="src" path="com.wizzer.mle.parts.props_src"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>

@@ -1,0 +1,20 @@
+#DWP 1.0 ascii
+( ActorDef SpinnerActor 
+	( HeaderFile spinnera.h ) 
+	( Package com.wizzer.mtea ) 
+	( SourceFile spinnera.cxx ) 
+	( DSOFile SpinnerActor.so ) 
+	( PropertyDef model MediaRef 
+		( MediaRefClass model Mle3dModelMediaRef )
+	)
+	( PropertyDef +brender texture MediaRef 
+		( MediaRefClass texture Mle3dTextureMapMediaRef )
+	)
+	( PropertyDef +win32 colorMap MediaRef 
+		( MediaRefClass colorMap Mle3dColorMapMediaRef )
+	)
+	( PropertyDef position MlVector3 ) 
+	( PropertyDef orientation MlRotation ) 
+	( PropertyDef scale MlVector3 ) 
+	( RoleSetMapping Mle3dRole Mle3dSet )
+) 

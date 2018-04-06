@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="**/.svn/" kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="/com.wizzer.mle.runtime"/>
+	<classpathentry kind="src" path="/com.wizzer.mle.math"/>
+	<classpathentry kind="src" path="/com.wizzer.mle.parts"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.wizzer.mle.parts.actors"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.wizzer.mle.parts.stages"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.wizzer.mle.parts.sets"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

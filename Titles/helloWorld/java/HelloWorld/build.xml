@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<!-- ====================================================================== 
+     Feburary 15, 2017 8:19 AM
+     Java2D Digital Playprint Test
+     Build and execute the Java2d HeeloWorld Title.
+     Author: Mark S. Millard
+     ====================================================================== -->
+<project name="Java2D HelloWorld Title" default="default">
+    <description>
+        This project is used to build and execute the Java2D HelloWorld
+        Title project.
+    </description>
+    
+    <!-- set the operating system test properties -->
+    <condition property="isMac">
+        <os family="mac" />
+    </condition>
+
+    <condition property="isWindows">
+        <os family="windows" />
+    </condition>
+
+    <condition property="isUnix">
+        <os family="unix" />
+    </condition>
+
+    <!-- init.properties target -->
+    <target name="init.properties">
+        <property environment="env"/>
+        <property file="build.properties"/>
+
+        <property name="mle.runtime" value="${env.MLE_ROOT}/lib/java/runtime/mlert.jar"/>
+        <property name="mle.math" value="${env.MLE_ROOT}/lib/java/runtime/mlmath.jar"/>
+        <property name="mle.parts" value="${env.MLE_ROOT}/lib/java/runtime/parts.jar"/>
+        <property name="mle.parts.actors" value="${env.MLE_ROOT}/lib/java/runtime/actors.jar"/>
+        <property name="mle.parts.props" value="${env.MLE_ROOT}/lib/java/runtime/props.jar"/>
+        <property name="mle.parts.roles" value="${env.MLE_ROOT}/lib/java/runtime/roles.jar"/>
+        <property name="mle.parts.sets" value="${env.MLE_ROOT}/lib/java/runtime/sets.jar"/>
+        <property name="mle.parts.stages" value="${env.MLE_ROOT}/lib/java/runtime/stages.jar"/>
+        <property name="mle.parts.mrefs" value="${env.MLE_ROOT}/lib/java/runtime/mrefs.jar"/>
+
+        <property name="mle.codegen" value="${env.MLE_ROOT}/lib/java/tools/codegen.jar"/>
+        
+        <path id="execute.classpath">
+            <pathelement location="bin"/>
+            <pathelement location="${mle.runtime}"/>
+            <pathelement location="${mle.math}"/>
+            <pathelement location="${mle.parts}"/>
+            <pathelement location="${mle.parts.actors}"/>
+            <pathelement location="${mle.parts.props}"/>
+            <pathelement location="${mle.parts.roles}"/>
+            <pathelement location="${mle.parts.sets}"/>
+            <pathelement location="${mle.parts.stages}"/>
+            <pathelement location="${mle.parts.mrefs}"/>
+            <pathelement location="${mle.codegen}"/>
+        </path>
+        
+        <tstamp>
+            <format property="buildtime"
+                    pattern="yyyy-MM-dd'T'HH:mm:ss"/>
+        </tstamp>
+    </target>
+    
+    <!-- initialize Windows dependencies -->
+    <target name="init.mastering.windows" if="isWindows">
+        <property name="master.workprint" value="workprints\HelloWorld.dwp"/>
+        <property name="master.destdir" value="src\gen"/>
+    </target>
+
+    <!-- initialize Unix dependencies -->
+    <target name="init.mastering.unix" if="isUnix">
+        <property name="master.workprint" value="workprints/HelloWorld.dwp"/>
+        <property name="master.destdir" value="src/gen"/>
+    </target>
+
+    <!-- init.mastering target -->
+    <target name="init.mastering" depends="init, init.mastering.windows, init.mastering.unix">
+        <property name="master.actorid.file" value="ActorID.java"/>
+        <property name="master.groupid.file" value="GroupID.java"/>
+        <property name="master.sceneid.file" value="SceneID.java"/>
+        <property name="master.bom" value="HelloWorld.BOM"/>
+        <property name="master.playprint" value="HelloWorld.dpp"/>
+        <property name="master.playprint.script" value="HelloWorld.tcl"/>
+        <property name="master.chunkindex" value="DppTOC"/>
+        
+        <mkdir dir="${master.destdir}"/>
+    </target>
+    
+    <!-- init target -->
+    <target name="init" depends="init.properties">
+        <mkdir dir="bin"/>
+        <mkdir dir="build"/>
+    </target>
+
+    <!-- default target -->
+    <target name="default" depends="master,compile"
+        description="Build the HelloWorld project.">
+        <echo>Done.</echo>
+    </target>
+
+    <!-- compile target -->
+    <target name="compile" depends="init"
+        description="Compile the HelloWorld project.">
+        <echo message="Build Timestamp: ${buildtime}"/>
+        <javac includeantruntime="false"
+               srcdir="src"
+               destdir="bin"
+               classpathref="execute.classpath"/>
+    </target>
+    
+    <!-- gengroup target -->
+    <target name="gengroup" depends="init.mastering"
+        description="Generate the Actor Group Chunks.">
+        <taskdef name="gengroup"
+                 classname="com.wizzer.mle.codegen.tasks.GenGroupTask"
+                 classpath="${mle.codegen}"/>
+        <gengroup byteorder="big" code="java" verbose="true" destdir="${master.destdir}">
+            <tag value="java2d"/>
+            <workprint value="${master.workprint}"/>
+            <actorid value="${master.actorid.file}"/>
+            <groupid value="${master.groupid.file}"/>
+        </gengroup>
+    </target>
+    
+    <!-- gengscene target -->
+    <target name="genscene" depends="init.mastering"
+        description="Generate the Scene Chunks.">
+        <taskdef name="genscene"
+                 classname="com.wizzer.mle.codegen.tasks.GenSceneTask"
+                 classpath="${mle.codegen}"/>
+        <genscene byteorder="big" code="java" verbose="true" destdir="${master.destdir}">
+            <tag value="java2d"/>
+            <workprint value="${master.workprint}"/>
+            <sceneid value="${master.sceneid.file}"/>
+        </genscene>
+    </target>
+    
+    <!-- genmedia target -->
+    <target name="genmedia" depends="init.mastering"
+        description="Generate the Media Reference Chunks.">
+        <taskdef name="genmedia"
+                 classname="com.wizzer.mle.codegen.tasks.GenMediaTask"
+                 classpath="${mle.codegen}"/>
+        <genmedia byteorder="big" destdir="${master.destdir}">
+            <tag value="java2d"/>
+            <workprint value="${master.workprint}"/>
+            <mediabom value="${master.bom}"/>
+        </genmedia>
+    </target>
+    
+    <!-- gentables target -->
+    <target name="gentables" depends="init.mastering"
+        description="Generate the Magic Lantern Runtime tables.">
+        <taskdef name="gentables"
+                 classname="com.wizzer.mle.codegen.tasks.GenTablesTask"
+                 classpath="${mle.codegen}"/>
+        <gentables code="java" destdir="${master.destdir}">
+            <tag value="java2d"/>
+            <workprint value="${master.workprint}"/>
+        </gentables>
+    </target>
+
+    <!-- genppscript target -->
+    <target name="genppscript" depends="init.mastering"
+        description="Generate the Digital Playpinrt TCL Layout Script.">
+        <taskdef name="genppscript"
+                 classname="com.wizzer.mle.codegen.tasks.GenDppScriptTask"
+                 classpath="${mle.codegen}"/>
+        <genppscript destdir="${master.destdir}">
+            <tag value="java2d"/>
+            <workprint value="${master.workprint}"/>
+            <playprint value="${master.playprint}"/>
+            <script value="${master.playprint.script}"/>
+            <chunkindex value="${master.chunkindex}"/>
+        </genppscript>
+    </target>
+    
+    <!-- gendpp target -->
+    <target name="gendpp" depends="gengroup,genscene,genmedia,gentables,genppscript"
+        description="Generate the Digital Playpinrt.">
+        <taskdef name="gendpp"
+                 classname="com.wizzer.mle.codegen.tasks.GenDppTask"
+                 classpath="${mle.codegen}"/>
+        <gendpp byteorder="big" code="java" destdir="${master.destdir}" srcdir="src/gen">
+            <tag value="java2d"/>
+            <workprint value="${master.workprint}"/>
+            <script value="src/gen/${master.playprint.script}"/>
+        </gendpp>
+        <move file="src/gen/${master.playprint}" todir="src"/>
+    </target>
+
+    <!-- execute target -->
+    <target name="execute" depends="gendpp,compile"
+        description="Execute the HelloWorld project.">
+        <java
+            classname="HelloWorld.HelloWorld"
+            classpathref="execute.classpath">
+            <arg value="src/${master.playprint}"/>
+        </java>
+    </target>
+    
+    <!-- master target -->
+    <target name="master" depends="gendpp"
+        description="Master the title, HelloWorld.">
+    </target>
+
+    <!-- stage files for creating jar package -->
+    <target name="stage" depends="master, compile"
+        description="Stage the title, HelloWorld.">
+        <copy todir="build/stage">
+            <fileset dir="bin"/>
+            <fileset file="src/HelloWorld.dpp"/>
+        </copy>
+    </target>
+
+    <!-- package target -->
+    <target name="package" depends="stage"
+        description="Package the title, HelloWorld.">
+        <jar destfile = "build/HelloWorld.jar">
+            <fileset dir="build/stage"/>
+            <manifest>
+                <attribute name="Main-Class"
+                           value="helloworld.title.HelloWorld"/>
+                <attribute name="Class-Path"
+                           value="${mle.runtime} ${mle.math} ${mle.parts} ${mle.parts.actors} ${mle.parts.props} ${mle.parts.roles} ${mle.parts.sets} ${mle.parts.stages} ${mle.parts.mrefs} ${mle.codegen}"/>
+            </manifest>
+        </jar>
+    </target>
+        
+    <!-- clean target -->
+    <target name="clean" depends="init.mastering"
+        description="Clean up the output directories.">
+        <delete>
+            <fileset dir="bin">
+                <include name="**/*"/>
+            </fileset>
+        </delete>
+        <delete file="build/HelloWorld.jar"/>
+        <delete dir="build/stage"/>
+        <delete dir="${master.destdir}"/>
+    </target>
+
+</project>
