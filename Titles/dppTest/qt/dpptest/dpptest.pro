@@ -37,7 +37,7 @@ win32 {
     copyfiles.commands += cp -r ../$${TARGET}/gen/DppImageTest.dpp $${DESTDIR}/
 }
 unix {
-    copyfiles.commands += mkdir -p ./media; cp ../../dpptest/wwlogo.png ./media;
+    copyfiles.commands += mkdir -p ./media; cp ../../dpptest/media/wwlogo.png ./media;
     copyfiles.commands += cp ../../dpptest/gen/DppImageTest.dpp .
 }
 
