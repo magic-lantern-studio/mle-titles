@@ -22,5 +22,6 @@ LT_INIT
 
 AC_CONFIG_FILES(Makefile
                 LabelWidgetActor/Makefile
+                LabelWidgetRole/Makefile
                 include/Makefile)
 AC_OUTPUT
