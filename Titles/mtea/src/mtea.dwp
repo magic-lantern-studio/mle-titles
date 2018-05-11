@@ -3,18 +3,6 @@
 ( Stage +rehearsal +inventor inventor MleIvStage 
 	( Set teaSet Mle3dSet ) 
 ) 
-( Stage +brender +rehearsal brender MleSGIBrStage 
-	( Set teaSet Mle3dSet 
-		( Property position MlVector2 0 0 ) 
-		( Property size MlVector2 640 480 ) 
-	) 
-) 
-( Stage +brender +sgi brender MleSGIBrStage 
-	( Set teaSet Mle3dSet 
-		( Property position MlVector2 0 0 ) 
-		( Property size MlVector2 640 480 ) 
-	) 
-) 
 ( Stage +brender +win32 brender MlePCBrStage 
 	( Set teaSet Mle3dSet 
 		( Property position MlVector2 0 0 ) 
@@ -35,6 +23,7 @@
 		( Actor a0 SpinnerActor 
 			( Property model MediaRef teapot ) 
 			( Property +brender texture MediaRef mandrill ) 
+			( Property +rehearsal texture MediaRef mandrill ) 
 			( Property +win32 colorMap MediaRef winshade ) 
 			( Property position MlVector3 0 0 0 ) 
 			( Property orientation MlRotation 0 0 0 1 ) 
@@ -55,9 +44,6 @@
 	( MediaRefTarget +win32 0 
 		( Media 0 geometry ..\\media\\teapot.dat ) 
 	) 
-	( MediaRefTarget +sgi 0 
-		( Media 0 geometry ../media/teapot.dat ) 
-	) 
 	( MediaRefTarget +rehearsal 0 
 		( Media 0 geometry ../media/teapot.dat ) 
 	) 
@@ -77,10 +63,15 @@
 	( MediaRefTarget +win32 0 
 		( Media 0 texture ..\\media\\mandrill.pix ) 
 	) 
-	( MediaRefTarget +sgi 0 
+	( MediaRefTarget +rehearsal 0 
 		( Media 0 texture ../media/mandrill.rgb ) 
 	) 
-	( MediaRefTarget +rehearsal 0 
+) 
+( MediaRef +rehearsal mandrill Mle3dTextureMapMediaRef 
+	( MediaRefSource 
+		( Media 0 texture ../media/mandrill.rgb ) 
+	) 
+	( MediaRefTarget 0 
 		( Media 0 texture ../media/mandrill.rgb ) 
 	) 
 ) 
@@ -90,9 +81,6 @@
 	) 
 	( MediaRefTarget +win32 0 
 		( Media 0 shadetable ..\\media\\winshade.tab ) 
-	) 
-	( MediaRefTarget +sgi 0 
-		( Media 0 shadetable ../media/winshade.tab ) 
 	) 
 	( MediaRefTarget +rehearsal 0 
 		( Media 0 shadetable ../media/winshade.tab ) 

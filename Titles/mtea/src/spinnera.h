@@ -12,18 +12,29 @@
 
 // COPYRIGHT_BEGIN
 //
-//  Copyright (C) 2000-2007  Wizzer Works
+// The MIT License (MIT)
 //
-//  Wizzer Works makes available all content in this file ("Content").
-//  Unless otherwise indicated below, the Content is provided to you
-//  under the terms and conditions of the Common Public License Version 1.0
-//  ("CPL"). A copy of the CPL is available at
+// Copyright (c) 2018 Wizzer Works
 //
-//      http://opensource.org/licenses/cpl1.0.php
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
-//  For purposes of the CPL, "Program" will mean the Content.
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
 //
-//  For information concerning this Makefile, contact Mark S. Millard,
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+//
+//  For information concerning this header file, contact Mark S. Millard,
 //  of Wizzer Works at msm@wizzerworks.com.
 //
 //  More information concerning Wizzer Works may be found at
@@ -59,6 +70,17 @@ class SPINNERACTOR_API SpinnerActor : public MleActor
 
   public:
 
+    static void getProperty(MleObject *object, const char *name, unsigned char **value); // value is an output parameter.
+    static void setProperty(MleObject *object, const char *name, unsigned char *value); // value is an input parameter.
+
+    // Property declarations.
+    MLE_ACTOR_PROPERTY(Mle3dTranslationProperty, position, getPositionProperty, setPositionProperty)
+    MLE_ACTOR_PROPERTY(Mle3dQuaternionRotationProperty, orientation, getOrientationProperty, setOrientationProperty)
+	MLE_ACTOR_PROPERTY(Mle3dNonuniformScaleProperty, scale, getScaleProperty, setScaleProperty)
+	MLE_ACTOR_PROPERTY(Mle3dModelProperty, model, getModelProperty, setModelProperty)
+	MLE_ACTOR_PROPERTY(Mle3dTextureMapProperty, texture, getTextureProperty, setTextureProperty)
+	MLE_ACTOR_PROPERTY(Mle3dColorMapProperty, colorMap, getColorMapProperty, setColorMapProperty)
+
 	SpinnerActor();
 
 	~SpinnerActor();
@@ -72,12 +94,12 @@ class SPINNERACTOR_API SpinnerActor : public MleActor
 	static void behave(SpinnerActor* spinner);
   
 	// The member properties.
-	Mle3dTranslationProperty        position;
-	Mle3dQuaternionRotationProperty orientation;
-	Mle3dNonuniformScaleProperty    scale;
-	Mle3dModelProperty              model;
-	Mle3dTextureMapProperty         texture;
-	Mle3dColorMapProperty           colorMap;
+	//Mle3dTranslationProperty        position;
+	//Mle3dQuaternionRotationProperty orientation;
+	//Mle3dNonuniformScaleProperty    scale;
+	//Mle3dModelProperty              model;
+	//Mle3dTextureMapProperty         texture;
+	//Mle3dColorMapProperty           colorMap;
 
 };
 

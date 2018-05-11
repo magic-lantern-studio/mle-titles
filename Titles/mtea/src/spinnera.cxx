@@ -12,18 +12,29 @@
 
 // COPYRIGHT_BEGIN
 //
-//  Copyright (C) 2000-2007  Wizzer Works
+// The MIT License (MIT)
 //
-//  Wizzer Works makes available all content in this file ("Content").
-//  Unless otherwise indicated below, the Content is provided to you
-//  under the terms and conditions of the Common Public License Version 1.0
-//  ("CPL"). A copy of the CPL is available at
+// Copyright (c) 2018 Wizzer Works
 //
-//      http://opensource.org/licenses/cpl1.0.php
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
-//  For purposes of the CPL, "Program" will mean the Content.
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
 //
-//  For information concerning this Makefile, contact Mark S. Millard,
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+//
+//  For information concerning this header file, contact Mark S. Millard,
 //  of Wizzer Works at msm@wizzerworks.com.
 //
 //  More information concerning Wizzer Works may be found at
@@ -31,6 +42,9 @@
 //      http://www.wizzerworks.com
 //
 // COPYRIGHT_END
+
+// Include system header files.
+#include <iostream>
 
 // Include Magic Lantern Runtime Engine header files.
 #include "mle/MleScheduler.h"
@@ -42,6 +56,8 @@
 
 // Include title header files.
 #include "spinnera.h"
+
+using namespace std;
 
 
 MLE_ACTOR_SOURCE(SpinnerActor,MleActor);
@@ -141,4 +157,67 @@ void SpinnerActor::behave(SpinnerActor* spinner)
 
     spinner->orientation.m_rotation *= delta;
     spinner->orientation.push(spinner);
+}
+
+void
+SpinnerActor:: getProperty(MleObject *object, const char *name, unsigned char **value)
+{
+    cout << "Getting SpinnerActor property " << name << "." << endl;
+    if (strcmp("position",name) == 0)
+    {
+    	Mle3dTranslationProperty position = ((SpinnerActor *)object)->getPositionProperty();
+        *((Mle3dTranslationProperty *)value) = position;
+    } else if (strcmp("orientation",name) == 0)
+    {
+    	Mle3dQuaternionRotationProperty orientation = ((SpinnerActor *)object)->getOrientationProperty();
+    	*((Mle3dQuaternionRotationProperty *)value) = orientation;
+    } else if (strcmp("scale",name) == 0)
+    {
+    	Mle3dNonuniformScaleProperty scale = ((SpinnerActor *)object)->getScaleProperty();
+        *((Mle3dNonuniformScaleProperty *)value) = scale;
+    } else if (strcmp("model",name) == 0)
+    {
+    	Mle3dModelProperty model = ((SpinnerActor *)object)->getModelProperty();
+        *((Mle3dModelProperty *)value) = model;
+    } else if (strcmp("texture",name) == 0)
+    {
+    	Mle3dTextureMapProperty texture = ((SpinnerActor *)object)->getTextureProperty();
+        *((Mle3dTextureMapProperty *)value) = texture;
+    } else if (strcmp("colorMap",name) == 0)
+    {
+    	Mle3dColorMapProperty cmap = ((SpinnerActor *)object)->getColorMapProperty();
+        *((Mle3dColorMapProperty *)value) = cmap;
+    } else
+    {
+        // TBD: log warning.
+        cout << "***** ERROR: Unknown SpinnerActor property: " << name << endl;
+    }
+}
+
+void
+SpinnerActor::setProperty(MleObject *object, const char *name, unsigned char *value)
+{
+    cout << "Setting SpinnerActor property " << name << "." << endl;
+    if (strcmp("position",name) == 0)
+    {
+    	((SpinnerActor *)object)->setPositionProperty(*((Mle3dTranslationProperty *)value));
+    } else if (strcmp("orientation",name) == 0)
+    {
+    	((SpinnerActor *)object)->setOrientationProperty(*((Mle3dQuaternionRotationProperty *)value));
+    } else if (strcmp("scale",name) == 0)
+    {
+    	((SpinnerActor *)object)->setScaleProperty(*((Mle3dNonuniformScaleProperty *)value));
+    } else if (strcmp("model",name) == 0)
+    {
+    	((SpinnerActor *)object)->setModelProperty(*((Mle3dModelProperty *)value));
+    } else if (strcmp("texture",name) == 0)
+    {
+    	((SpinnerActor *)object)->setTextureProperty(*((Mle3dTextureMapProperty *)value));
+    } else if (strcmp("colorMap",name) == 0)
+    {
+    	((SpinnerActor *)object)->setColorMapProperty(*((Mle3dColorMapProperty *)value));
+    } else {
+        // TBD: log warning.
+        cout << "***** ERROR: Unknown SpinnerActor property: " << name << endl;
+    }
 }
