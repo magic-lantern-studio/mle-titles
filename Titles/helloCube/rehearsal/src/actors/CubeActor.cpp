@@ -65,6 +65,7 @@ CubeActor::initClass(void)
 
     mleRegisterActorMember(CubeActor, position, MlVector3);
     mleRegisterActorMember(CubeActor, geometry, FloatArray);
+    mleRegisterActorMember(CubeActor, color, FloatArray);
 
     // Mark all the properties that belongs to the "transform" property
     // data set.
@@ -114,9 +115,10 @@ CubeActor::resolveEdit(const char *property)
 
     if (! property || strcmp(property, "position") == 0)
         role->cubePosition(position);
-    else if(strcmp(property, "geometry") == 0) {
+    else if(strcmp(property, "geometry") == 0)
         role->cubeGeometry(geometry[0], geometry[1], geometry[2]);
-    }
+    else if(strcmp(property, "color") == 0)
+        role->cubeColor(color[0], color[1], color[2]);
 }
 #endif /* MLE_REHEARSAL */
 
