@@ -67,11 +67,13 @@ class SHAPEACTOR_API CubeActor : public MleActor
 
     // Property declarations.
     // <b>position</b> property contains x and y positions relative to
-    // the corresponding set's coordinate system.  (0, 0) corresponds
+    // the corresponding set's coordinate system.  (0, 0, 0) corresponds
     // to the lower left corner (origin of the corresponding set).
     MLE_ACTOR_PROPERTY(MlVector3, position, getPositionProperty, setPositionProperty)
-    // <b>geometry</b> property is the cube's vertices.
+    // <b>geometry</b> property is the cube's dimension by width, height and depth.
     MLE_ACTOR_ARRAY_PROPERTY(float, geometry, getGeometryProperty, setGeometryProperty)
+	// <b>color</b> property is the cube's RGB setting.
+	MLE_ACTOR_ARRAY_PROPERTY(float, color, getColorProperty, setColorProperty)
 
     // Construct a label widget actor.
     CubeActor(void);
@@ -94,6 +96,9 @@ class SHAPEACTOR_API CubeActor : public MleActor
 
     // Set the cube geometry.
     virtual void setGeometry(MleArray<float> &dimensions);
+
+    // Set the cube color.
+    virtual void setColor(MleArray<float> &rgb);
 };
 
 #endif /* __CUBEACTOR_H_ */

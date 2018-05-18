@@ -83,10 +83,16 @@ CubeActor::CubeActor(void)
     geometry[0] = 1.0; // Size in x dimension.
     geometry[1] = 1.0; // Size in y dimension.
     geometry[2] = 1.0; // Size in z dimension.
+
+    // The inital color of the cube is green.
+    color[0] = 0.0;  // Red component.
+    color[1] = 1.0;  // Green component.
+    color[2] = 0.0;  // Blue component.
 }
 
 CubeActor::~CubeActor(void)
 {
+	// Do nothing extra.
 }
 
 void
@@ -97,6 +103,7 @@ CubeActor::init()
     // Push initial data retreived from the workprint into the role.
     role->cubePosition(position);
     role->cubeGeometry(geometry[0], geometry[1], geometry[2]);
+    role->cubeColor(color[0], color[1], color[2]);
 }
 
 #ifdef MLE_REHEARSAL
@@ -136,10 +143,26 @@ CubeActor::setGeometry(MleArray<float> &vertices)
 }
 
 void
+CubeActor::setColor(MleArray<float> &rgb)
+{
+    CubeRole *role = CubeRole::cast(getRole());
+
+    // Update color property ...
+    color = rgb;
+    // ... and push the update to the role.
+    role->cubeColor(color[0], color[1], color[2]);
+}
+
+void
 CubeActor:: getProperty(MleObject *object, const char *name, unsigned char **value)
 {
     cout << "Getting CubeActor property " << name << "." << endl;
-    if (strcmp("geometry",name) == 0)
+    if (strcmp("color",name) == 0)
+    {
+        const MleArray<float> *color;
+        color = ((CubeActor *)object)->getColorProperty();
+        *((MleArray<float> *)value) = *color;
+    } else if (strcmp("geometry",name) == 0)
     {
         const MleArray<float> *dimensions;
         dimensions = ((CubeActor *)object)->getGeometryProperty();
@@ -159,12 +182,15 @@ void
 CubeActor::setProperty(MleObject *object, const char *name, unsigned char *value)
 {
     cout << "Setting CubeActor property " << name << "." << endl;
-    if (strcmp("geometry",name) == 0)
+    if (strcmp("color",name) == 0)
     {
-      ((CubeActor *)object)->setGeometryProperty(*((MleArray<float> *)value));
+        ((CubeActor *)object)->setColorProperty(*((MleArray<float> *)value));
+    } else if (strcmp("geometry",name) == 0)
+    {
+        ((CubeActor *)object)->setGeometryProperty(*((MleArray<float> *)value));
     } else if (strcmp("position",name) == 0)
     {
-       ((CubeActor *)object)->setPositionProperty(*((MlVector3 *)value));
+        ((CubeActor *)object)->setPositionProperty(*((MlVector3 *)value));
     } else {
         // TBD: log warning.
         cout << "***** ERROR: Unknown CubeActor property: " << name << endl;

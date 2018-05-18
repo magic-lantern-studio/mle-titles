@@ -64,8 +64,14 @@ MLE_ROLE_SOURCE(CubeRole, Mle3dRole)
 CubeRole::CubeRole(MleActor *actor)
   : Mle3dRole(actor)
 {
+	// Set default color to red.
+	m_red = 1.0;
+	m_green = 0.0;
+	m_blue = 0.0;
+
 #ifdef MLE_REHEARSAL
 	m_cube = new SoCube();
+	m_material = new SoMaterial();
 #endif
 }
 
@@ -100,6 +106,18 @@ CubeRole::cubeGeometry(const float width, const float height, const float depth)
      m_cube->width  = ivWidth;
      m_cube->height = ivHeight;
      m_cube->depth  = ivDepth;
+#endif
+}
+
+void
+CubeRole::cubeColor(const float red, const float green, const float blue)
+{
+	m_red   = red;
+	m_green = green;
+	m_blue  = blue;
+
+#ifdef MLE_REHEARSAL
+	m_material->diffuseColor.setValue(m_red, m_green, m_blue);
 #endif
 }
 

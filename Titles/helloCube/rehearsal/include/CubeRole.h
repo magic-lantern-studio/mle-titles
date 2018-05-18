@@ -49,6 +49,7 @@
 // Include Inventor header files.
 #ifdef MLE_REHEARSAL
 #include <Inventor/nodes/SoCube.h>
+#include <Inventor/nodes/SoMaterial.h>
 #endif
 
 // Include Magic Lantern header files.
@@ -81,6 +82,9 @@ class SHAPEROLE_API CubeRole : public Mle3dRole
     // Update the cube geometry to render.
     void cubeGeometry(const float width, const float height, const float depth);
 
+    // Update the cube color.
+    void cubeColor(const float red, const float green, const float blue);
+
     // The render() function of the 3D Set calls this function to update
     // this role every cycle.
     virtual void draw(void *data);
@@ -90,13 +94,19 @@ class SHAPEROLE_API CubeRole : public Mle3dRole
     // Cube coordinate position.
     MlVector3 m_position;
 
-    // Cube geometry parameters;
+    // Cube geometry parameters.
     float m_width;  // Size in x dimension.
     float m_height; // Size in y dimension.
     float m_depth;  // Size in z dimension.
 
+    // Cube color parameters.
+    float m_red;
+    float m_green;
+    float m_blue;
+
 #ifdef MLE_REHEARSAL
     SoCube *m_cube;
+    SoMaterial *m_material;
 #endif
 };
 
