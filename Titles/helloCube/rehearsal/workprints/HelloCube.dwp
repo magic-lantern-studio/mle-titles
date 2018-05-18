@@ -21,7 +21,7 @@
     ( HeaderFile mle/MleGroup.h ) 
     ( Actor cube CubeActor
       ( Property position MlVector3 10.0 10.0 10.0 )
-      ( Property geometry FloatArray [ 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0 ] )
+      ( Property geometry FloatArray [ 1.0, 1.0, 1.0 ] )
       ( RoleBinding CubeRole 3dSet )
     )
   ) 
