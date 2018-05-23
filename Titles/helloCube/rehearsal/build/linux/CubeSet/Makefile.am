@@ -1,0 +1,2 @@
+SUBDIRS=CubeSet include
+ACLOCAL_AMFLAGS=-I m4

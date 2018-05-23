@@ -59,20 +59,15 @@
 
 using namespace std;
 
-MLE_ROLE_SOURCE(CubeRole, Mle3dRole)
+MLE_ROLE_SOURCE(CubeRole, MleRole)
 
 CubeRole::CubeRole(MleActor *actor)
-  : Mle3dRole(actor)
+  : MleRole(actor)
 {
 	// Set default color to red.
 	m_red = 1.0;
 	m_green = 0.0;
 	m_blue = 0.0;
-
-#ifdef MLE_REHEARSAL
-	m_cube = new SoCube();
-	m_material = new SoMaterial();
-#endif
 }
 
 CubeRole::~CubeRole()
@@ -80,6 +75,18 @@ CubeRole::~CubeRole()
 #ifdef MLE_REHEARSAL
 	// SoCube::~SoCube() is protected. Therefore we can't delete it from here.
 	// delete m_cube;
+#endif
+}
+
+void
+CubeRole::init()
+{
+#ifdef MLE_REHEARSAL
+	m_cube = new SoCube();
+	m_material = new SoMaterial();
+	m_root = new SoSeparator();
+	m_root->addChild(m_material);
+	m_root->addChild(m_cube);
 #endif
 }
 

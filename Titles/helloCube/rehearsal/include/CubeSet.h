@@ -1,13 +1,13 @@
 /** @defgroup HelloCubeTitle Magic Lantern HelloCube Title */
 
 /**
- * @file CubeRole.h
+ * @file CubeSet.h
  * @ingroup HelloCubeTitle
  *
- * This file defines the CubeRole for the HelloCube title.
+ * This file defines the CubeActor for the HelloCube title.
  *
  * @author Mark S. Millard
- * @date May 14, 2018
+ * @date May 22, 2018
  */
 
 // COPYRIGHT_BEGIN
@@ -43,76 +43,51 @@
 //
 // COPYRIGHT_END
 
-#ifndef __CUBEROLE_H_
-#define __CUBEROLE_H_
-
-// Include Inventor header files.
-#ifdef MLE_REHEARSAL
-#include <Inventor/nodes/SoSeparator.h>
-#include <Inventor/nodes/SoCube.h>
-#include <Inventor/nodes/SoMaterial.h>
-#endif
+#ifndef __CUBESET_H_
+#define __CUBESET_H_
 
 // Include Magic Lantern header files.
 #include "mle/mlTypes.h"
+#include "mle/mlMalloc.h"
 #include "math/vector.h"
-//#include "mle/MleIv3dRole.h"
-#include "mle/MleRole.h"
+#include "mle/MleSet.h"
 
 // Include Title header files.
-#include "ShapeRole.h"
+#include "ShapeSet.h"
 
-// Declare external classes.
-class MleActor;
-
-class SHAPEROLE_API CubeRole : public MleRole
+class SHAPESET_API CubeSet : public MleSet
 {
-    MLE_ROLE_HEADER(CubeRole);
+    MLE_SET_HEADER(CubeSet);
 
   public:
 
-    // Construct a cube role.
-    CubeRole(MleActor *actor);
+    static void getProperty(MleObject *object, const char *name, unsigned char **value);
+    static void setProperty(MleObject *object, const char *name, unsigned char *value);
 
-    // Destruct a cube role.
-    virtual ~CubeRole(void);
+    // Property declarations.
+    // <b>position</b> property contains x and y positions relative to
+    // the corresponding stage's coordinate system.  (0, 0) corresponds
+    // to the lower left corner (origin of the corresponding set).
+    MLE_SET_PROPERTY(MlVector2, position, getPositionProperty, setPositionProperty)
 
-    // Initialize the cube role.
+    // Construct a label widget actor.
+    CubeSet(void);
+
+    // Destruct a label widget actor.
+    virtual ~CubeSet(void);
+
+    // Initialize the set.
     virtual void init(void);
 
-    // Update the position where the cube is drawn.
-    void cubePosition(const MlVector3 &pos);
-
-    // Update the cube geometry to render.
-    void cubeGeometry(const float width, const float height, const float depth);
-
-    // Update the cube color.
-    void cubeColor(const float red, const float green, const float blue);
-
-    // The render() function of the 3D Set calls this function to update
-    // this role every cycle.
-    virtual void draw(void *data);
-
-  protected:
-
-    // Cube coordinate position.
-    MlVector3 m_position;
-
-    // Cube geometry parameters.
-    float m_width;  // Size in x dimension.
-    float m_height; // Size in y dimension.
-    float m_depth;  // Size in z dimension.
-
-    // Cube color parameters.
-    float m_red;
-    float m_green;
-    float m_blue;
-
 #ifdef MLE_REHEARSAL
-    SoSeparator *m_root;
-    SoCube *m_cube;
-    SoMaterial *m_material;
-#endif
+    // Tools can change property values directly on the set. This
+    // function can be used to propagate the changes and
+    // to make its state consistent.
+    virtual void resolveEdit(const char *property);
+#endif  /* MLE_REHEARSAL */
+
+    // Set the current position.
+    virtual void setPosition(MlVector2 &pos);
 };
 
-#endif /* __CUBEROLE_H_ */
+#endif /* __CUBESET_H_ */
