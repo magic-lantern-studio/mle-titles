@@ -4,7 +4,7 @@
  * @file CubeActor.cpp
  * @ingroup CubeTitle
  *
- * This file implements the CubeActor for the HelloCube title.
+ * This file implements the CubeSet for the HelloCube title.
  *
  * @author Mark S. Millard
  * @date May 15, 2018

@@ -4,7 +4,7 @@
  * @file CubeSet.h
  * @ingroup HelloCubeTitle
  *
- * This file defines the CubeActor for the HelloCube title.
+ * This file defines the CubeSet for the HelloCube title.
  *
  * @author Mark S. Millard
  * @date May 22, 2018
@@ -45,6 +45,9 @@
 
 #ifndef __CUBESET_H_
 #define __CUBESET_H_
+
+// Include Inventor header files.
+#include <Inventor/nodes/SoSeparator.h>
 
 // Include Magic Lantern header files.
 #include "mle/mlTypes.h"
@@ -88,6 +91,16 @@ class SHAPESET_API CubeSet : public MleSet
 
     // Set the current position.
     virtual void setPosition(MlVector2 &pos);
+
+    // Get the Inventor scene graph for the set.
+    SoSeparator *getRoot(void)
+    { return m_root; }
+
+  protected:
+
+    // The root of the Inventor scene graph for the set.
+    SoSeparator *m_root;
+
 };
 
 #endif /* __CUBESET_H_ */
