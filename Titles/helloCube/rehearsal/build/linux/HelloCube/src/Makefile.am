@@ -1,6 +1,6 @@
 bin_PROGRAMS = helloCube
 
-helloCube_SOURCES = helloCube.cpp title.cpp
+helloCube_SOURCES = helloCube.cpp title.cpp callback.cpp
 
 helloCube_LDADD = \
 	$(MLE_ROOT)/lib/mle/rehearsal/libmlert.so \
@@ -11,4 +11,5 @@ helloCube_LDADD = \
 
 helloCube_CPPFLAGS = \
 	-DMLE_NOT_DLL \
+	-I$(top_srcdir)/../../../include \
 	-I$(MLE_ROOT)/include
