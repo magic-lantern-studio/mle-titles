@@ -102,6 +102,9 @@ class REHEARSAL_API CubeStage : public MleStage
     CubeStage(void);
     virtual ~CubeStage(void);
     
+    // Initialize the stage.
+    void init(void);
+
     // Stage-specific API.
     //   This is new API (not inherited) for this particular stage type.
 

@@ -221,6 +221,10 @@ CubeStage::~CubeStage(void)
 {
 }
 
+void CubeStage::init(void)
+{
+}
+
 // initPlatform
 //   Creates and initializes platform-specific data.
 void*

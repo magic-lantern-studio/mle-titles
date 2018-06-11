@@ -67,7 +67,7 @@ MleEventEntry g_eventTable[] =
 {
     /* {<event>, <callback>, <client data>, <event dispatch mode>} */
     /* e.g. {QT_CLOSE_EVENT,msgClose,(void *)g_theTitle,MLE_EVMGR_IMMEDIATE|MLE_EVMGR_ENABLED} */
-    {QT_CLOSE_EVENT,msgClose,(void *)g_theTitle,MLE_EVMGR_IMMEDIATE|MLE_EVMGR_ENABLED}
+    {HELLOCUBE_CLOSE_EVENT,msgClose,(void *)g_theTitle,MLE_EVMGR_IMMEDIATE|MLE_EVMGR_ENABLED}
 };
 
 int g_numEvents = sizeof(g_eventTable) / sizeof(MleEventEntry);

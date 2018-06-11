@@ -55,6 +55,8 @@
 //
 // Event callback prototypes.
 //
+MleEvent HELLOCUBE_CLOSE_EVENT;
+
 
 // Callbacks for Xt Messages.
 int msgClose(MleEvent event,void *callData,void *clientData);

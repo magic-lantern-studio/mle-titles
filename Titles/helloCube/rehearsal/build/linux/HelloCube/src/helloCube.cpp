@@ -99,10 +99,10 @@ typedef struct _ArgStruct
 } ArgStruct;
 
 const char *usage_str = "\
-Syntax:   helloCube [-v] <digital_workprint>\n\
+Syntax:   helloCube [-v] <workprint>\n\
 \n\
-          -v                   Be verbose\n\
-          <digital_workprint>  Digital Workprint for title\n\
+          -v           Be verbose\n\
+          <workprint>  Digital Workprint for title\n\
 \n\
 Function: Execute the helloCube Magic Lantern title.\n\
 \n";
@@ -184,7 +184,7 @@ int main(int argc, char **argv)
     envArgv[0] = (void *)g_eventTable;
     envArgv[1] = (void *)g_numEvents;
     envArgv[2] = args.workprint;
-    envArgv[3] = NULL;
+    envArgv[3] = NULL; // Currently no title specific data.
     envArgc = 4;
     if (! initEnv(envArgc,envArgv))
         return FALSE;
@@ -192,9 +192,9 @@ int main(int argc, char **argv)
     // Main execution loop.
     retValue = mainLoop();
 
-    // Cleanup title environment.
+    // Clean up title environment.
     cleanupEnv();
 
-    // Returns the value from PostQuitMessage.
-    return(retValue);
+    // Return the value from PostQuitMessage.
+    return retValue;
 }
