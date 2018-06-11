@@ -14,7 +14,7 @@
 //
 // The MIT License (MIT)
 //
-// Copyright (c) 2017-2018 Wizzer Works
+// Copyright (c) 2018 Wizzer Works
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -108,6 +108,7 @@ Function: Execute the helloCube Magic Lantern title.\n\
 \n";
 
 
+// Parse command line options.
 int parseArgs(int argc, char *argv[], ArgStruct *args)
 {
     /* declare local variables */
@@ -158,7 +159,7 @@ int parseArgs(int argc, char *argv[], ArgStruct *args)
     return TRUE;
 }
 
-
+// Title main entry point.
 int main(int argc, char **argv)
 {
 	// Declare local variables.
@@ -184,7 +185,7 @@ int main(int argc, char **argv)
     envArgv[0] = (void *)g_eventTable;
     envArgv[1] = (void *)g_numEvents;
     envArgv[2] = args.workprint;
-    envArgv[3] = NULL; // Currently no title specific data.
+    envArgv[3] = NULL; // Currently no title specific data is utilized.
     envArgc = 4;
     if (! initEnv(envArgc,envArgv))
         return FALSE;
@@ -195,6 +196,6 @@ int main(int argc, char **argv)
     // Clean up title environment.
     cleanupEnv();
 
-    // Return the value from PostQuitMessage.
+    // Return the value from mainLoop execution completion.
     return retValue;
 }

@@ -43,6 +43,9 @@
 //
 // COPYRIGHT_END
 
+// Include Open Inventor header files.
+#include <Inventor/Xt/SoXt.h>
+
 // Include Magic Lantern header files.
 #include "mle/mlMalloc.h"
 #include "mle/mlFileio.h"
@@ -56,6 +59,7 @@
 #include "mle/MleEventDispatcher.h"
 #include "mle/mlPlatformData.h"
 
+// Include Digital Workprint header files.
 #include "mle/Dwp.h"
 #include "mle/DwpItem.h"
 
@@ -66,7 +70,6 @@
 extern void mleDwpInit();
 
 // Forward declarations.
-static MleIvPlatformData *initPlatform(void);
 static MleEventDispatcher *initEventMgr(MleEventEntry *eventTable,int numEvents);
 
 
@@ -91,9 +94,6 @@ MlBoolean initEnv(int argc, void **argv)
 		workprint = (char *)argv[2];
         initTitle = (void *(*)(void))argv[3];
 	}
-
-	// Initialize the platform data.
-	g_theTitle->m_platformData = initPlatform();
 
 	// Initialize the quit flag.
 	g_theTitle->m_quit = FALSE;
@@ -120,9 +120,12 @@ MlBoolean initEnv(int argc, void **argv)
     else
 	    g_theTitle->m_titleData = NULL;
 
-    // Initialize stage.
+    // Create and initialize stage.
     new CubeStage();
     ((CubeStage *)MleStage::g_theStage)->init();
+
+	// Initialize the platform data.
+	g_theTitle->m_platformData = ((CubeStage *)MleStage::g_theStage)->initPlatform();
 
     // Load the first group.
     (void) mlLoadBootScene(g_workprint);
@@ -131,9 +134,48 @@ MlBoolean initEnv(int argc, void **argv)
 }
 
 
+static void _processScheduledPhases(void)
+{
+    // Run all the scheduled phases.  This will even work if
+    // the title author has inserted his own phases.
+    MleSchedulerIterator iter(g_theTitle->m_theScheduler);
+    for (MleSchedulerPhase *phase = iter.firstPhase();
+         phase != NULL;
+         phase = iter.nextPhase() )
+    {
+    	g_theTitle->m_theScheduler->go(phase);
+    }
+}
+
+
 // Main loop of execution.
 int mainLoop(void)
 {
+    // Get the application context for the stage.
+    XtAppContext appContext = SoXt::getAppContext();
+
+    for (;;)
+    {
+        // Check for events and dispatch them if found.
+        while (XtAppPending(appContext))
+        {
+            XEvent event;
+            SoXt::nextEvent(appContext, &event);
+            Boolean dispatched = SoXt::dispatchEvent(&event);
+        }
+#if 0
+        while (XtAppPending(appContext))
+            XtAppProcessEvent(appContext,XtIMAll);
+#endif /* 0 */
+
+        // Process phases registered with the scheduler.
+        _processScheduledPhases();
+
+        // Quit on title request.
+        if (g_theTitle->m_quit == ML_TRUE)
+    	    break;
+    }
+
     return 0;
 }
 
@@ -160,27 +202,6 @@ MlBoolean cleanupEnv(void)
 }
 
 
-// Initialize the Inventor platform.
-MleIvPlatformData *initPlatform(void)
-{
-    MleIvPlatformData *ivPlatformData;
-
-    // Create platform specific data for Inventor platform.
-    ivPlatformData = new MleIvPlatformData();
-
-    // Initialize input manager flags.
-    ivPlatformData->setKeyboardManager(MLE_INPUT_DEVICE_MANAGER_NOT_INSTANTIATED);
-    ivPlatformData->setMouseManager(MLE_INPUT_DEVICE_MANAGER_NOT_INSTANTIATED);
-    ivPlatformData->setJoystickManager(MLE_INPUT_DEVICE_MANAGER_NOT_INSTANTIATED);
-
-    // XXX: extract window size from properties
-    //ivPlatformData->m_defaultWidth = DEFAULT_VIEW_WIDTH;
-    //ivPlatformData->m_defaultHeight = DEFAULT_VIEW_HEIGHT;
-
-    return ivPlatformData;
-}
-
-
 // Initialize Magic Lantern Dispatch Manager.
 MleEventDispatcher *initEventMgr(MleEventEntry *eventTable, int numEvents)
 {
@@ -194,5 +215,4 @@ MleEventDispatcher *initEventMgr(MleEventEntry *eventTable, int numEvents)
     g_theTitle->m_theEventMgr->installEventCB(eventTable, numEvents);
 
     return g_theTitle->m_theEventMgr;
-
 }
