@@ -1,5 +1,5 @@
 #DWP 1.0 ascii
-( Include $MLE_WORKPRINTS/Parts/sets/inventor/workprints/MleIv3dSet.wpf )
+( Include $MLE_WORKPRINTS/MleIv3dSet.wpf )
 ( Stage MyStage MleIvStage
   ( Set 3dSet Mle3dSet
     ( Property position MlVector2 0.0 0.0 )
