@@ -1,20 +1,20 @@
 /** @defgroup HelloCubeTitle Magic Lantern HelloCube Title */
 
 /**
- * @file title.cpp
+ * @file main.cpp
  * @ingroup HelloCubeTitle
  *
- * @author Mark S. Millard
- * @date June 7, 2018
+ * This file implements the main entry points into the HelloCube title.
  *
- * This file implements the HelloCube title.
+ * @author Mark S. Millard
+ * @date June 18, 2018
  */
 
 // COPYRIGHT_BEGIN
 //
 // The MIT License (MIT)
 //
-// Copyright (c) 2017-2018 Wizzer Works
+// Copyright (c) 2018 Wizzer Works
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -43,28 +43,35 @@
 //
 // COPYRIGHT_END
 
-// Include Open Inventor header files.
-#include <Inventor/Xt/SoXt.h>
+// Include Qt header files.
+#include <QApplication>
+#include <QScreen>
+#include <QTimer>
 
-// Include Magic Lantern header files.
-#include "mle/mlMalloc.h"
-#include "mle/mlFileio.h"
-#include "mle/mlAssert.h"
+// Include Magic Lantern header files
 #include "mle/mlTypes.h"
+#include "mle/mlMalloc.h"
+#include "mle/mlAssert.h"
+#include "mle/mlErrno.h"
 
 // Include Magic Lantern Runtime Engine header files.
-#include "mle/MleLoad.h"
 #include "mle/MleDirector.h"
-#include "mle/MleScheduler.h"
 #include "mle/MleEventDispatcher.h"
-#include "mle/mlPlatformData.h"
+#include "mle/MleScheduler.h"
+#include "mle/MleLoad.h"
 
 // Include Digital Workprint header files.
 #include "mle/Dwp.h"
 #include "mle/DwpItem.h"
+#include "mle/DwpLoad.h"
 
-// Include HelloCube title header files.
-#include "CubeStage.h"
+// Platform data must match the Qt MLE Runtime Engine platform.
+#include "mlPlatformData.h"
+
+// Include Magic Lantern Qt Parts header files.
+#include "mle/qt/qtstage.h"
+
+// Include title header files.
 
 // External declarations.
 extern void mleDwpInit();
@@ -77,30 +84,66 @@ static MleEventDispatcher *initEventMgr(MleEventEntry *eventTable,int numEvents)
 static MleDwpItem *g_workprint;
 
 
-// Initialize the HelloCube title environment.
+static MleQtPlatformData *
+initPlatform()
+{
+    // Declare local variables.
+    MleQtPlatformData* qtData;
+
+    // Allocate a platform specific data structure.
+    qtData = new MleQtPlatformData();
+
+    // Initialize the platform specific data
+    //    Load the playprint file name from a Qt resource.
+    //LoadString(hInstance,IDS_PLAYPRINT,
+    //     qtData->m_playprint,sizeof(qtData->m_playprint));
+
+    // Initialize input manager flags.
+    qtData->setKeyboardManager(MLE_INPUT_DEVICE_MANAGER_NOT_INSTANTIATED);
+    qtData->setMouseManager(MLE_INPUT_DEVICE_MANAGER_NOT_INSTANTIATED);
+    qtData->setJoystickManager(MLE_INPUT_DEVICE_MANAGER_NOT_INSTANTIATED);
+
+    // Todo: extract window style from Set properties.
+    //qtData->m_winStyle = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU |
+    //    WS_THICKFRAME | WS_MAXIMIZEBOX | WS_CLIPCHILDREN;
+
+    // Todo: extract window size from Set properties
+    qtData->m_defaultWinWidth = DEFAULT_VIEW_WIDTH;
+    qtData->m_defaultWinHeight = DEFAULT_VIEW_HEIGHT;
+
+    return qtData;
+}
+
+
 MlBoolean initEnv(int argc, void **argv)
 {
-	MleEventEntry *eventTable;
-	long numEvents;
-	void *(*initTitle)(void);
-	char *workprint;
+    MleEventEntry *eventTable;
+    long numEvents;
+    void *(*initTitle)(void);
+    char *workprint;
 
-	// Parse arguments.
-	if (argc != 4) {
-		return ML_FALSE;
-	} else {
-		eventTable = (MleEventEntry *)argv[0];
-		numEvents = (long) argv[1];
-		workprint = (char *)argv[2];
+    // Parse arguments.
+    if (argc != 4) {
+        return ML_FALSE;
+    } else {
+        eventTable = (MleEventEntry *)argv[0];
+        numEvents = (long) argv[1];
+        workprint = (char *)argv[2];
         initTitle = (void *(*)(void))argv[3];
-	}
+    }
 
-	// Initialize the quit flag.
-	g_theTitle->m_quit = FALSE;
+    // The title director should already be constructed.
+    MLE_ASSERT(g_theTitle);
 
-	// Load the Digital Workprint.
-	mleDwpInit();
-	g_workprint = mlLoadWorkprint(workprint);
+    // Initialize the platform data.
+    g_theTitle->m_platformData = initPlatform();
+
+    // Initialize the quit flag.
+    g_theTitle->m_quit = FALSE;
+
+    // Load the Digital Workprint.
+    mleDwpInit();
+    g_workprint = mlLoadWorkprint(workprint);
 
     // Initialize scheduler.
     g_theTitle->m_theScheduler = new MleScheduler;
@@ -118,69 +161,41 @@ MlBoolean initEnv(int argc, void **argv)
     if (initTitle)
         g_theTitle->m_titleData = initTitle();
     else
-	    g_theTitle->m_titleData = NULL;
+        g_theTitle->m_titleData = NULL;
 
     // Create and initialize stage.
-    new CubeStage();
-    ((CubeStage *)MleStage::g_theStage)->init();
-
-	// Initialize the platform data.
-	g_theTitle->m_platformData = ((CubeStage *)MleStage::g_theStage)->initPlatform();
+    QtStage *theStage = new QtStage();
+    theStage->init();
 
     // Load the first group.
     (void) mlLoadBootScene(g_workprint);
+
+    // Show the stage.
+    theStage->setName("HelloCube Title");
+    theStage->show();
 
     return ML_TRUE;
 }
 
 
-static void _processScheduledPhases(void)
+int mainLoop(const QGuiApplication &app)
 {
-    // Run all the scheduled phases.  This will even work if
-    // the title author has inserted his own phases.
-    MleSchedulerIterator iter(g_theTitle->m_theScheduler);
-    for (MleSchedulerPhase *phase = iter.firstPhase();
-         phase != NULL;
-         phase = iter.nextPhase() )
-    {
-    	g_theTitle->m_theScheduler->go(phase);
+    int status = 0;
+
+    while(! QtStage::g_doExit) {
+        // Execute the scheduled phases in order of insertion.
+        g_theTitle->m_theScheduler->goAll();
+
+        // Process pending Qt events.
+        app.processEvents();
+
+        //qDebug() << "null Title: mainloop iteration.";
     }
+
+    return status;
 }
 
 
-// Main loop of execution.
-int mainLoop(void)
-{
-    // Get the application context for the stage.
-    XtAppContext appContext = SoXt::getAppContext();
-
-    for (;;)
-    {
-        // Check for events and dispatch them if found.
-        while (XtAppPending(appContext))
-        {
-            XEvent event;
-            SoXt::nextEvent(appContext, &event);
-            Boolean dispatched = SoXt::dispatchEvent(&event);
-        }
-#if 0
-        while (XtAppPending(appContext))
-            XtAppProcessEvent(appContext,XtIMAll);
-#endif /* 0 */
-
-        // Process phases registered with the scheduler.
-        _processScheduledPhases();
-
-        // Quit on title request.
-        if (g_theTitle->m_quit == ML_TRUE)
-    	    break;
-    }
-
-    return 0;
-}
-
-
-// Clean up HelloCube title environment.
 MlBoolean cleanupEnv(void)
 {
     MLE_ASSERT(g_theTitle->m_theScheduler != NULL);
@@ -193,7 +208,7 @@ MlBoolean cleanupEnv(void)
     // Cleanup Magic Lantern Runtime Engine and title components.
     delete g_theTitle->m_theScheduler;
     delete g_theTitle->m_theEventMgr;
-    delete (MleIvPlatformData *)g_theTitle->m_platformData;
+    delete (MleQtPlatformData *)g_theTitle->m_platformData;
     //if (g_theTitle->m_titleData)
     //    delete g_theTitle->m_titleData;
     //mlFree(g_theTitle);

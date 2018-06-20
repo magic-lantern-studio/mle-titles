@@ -9,8 +9,10 @@ helloCube_LDADD = \
 	$(MLE_ROOT)/lib/libDWP.so \
 	$(MLE_ROOT)/lib/libmlutil.so \
 	$(MLE_ROOT)/lib/libmlmath.so \
-	-lCoin -lSoXt -lX11 -lXt -ldl
-	
+	-lCoin -lSoXt -lXt -ldl
+
+#-lCoin -lSoXt -lX11 -lXt -ldl
+
 helloCube_LDFLAGS = -Wl,--no-as-needed
 
 helloCube_CPPFLAGS = \

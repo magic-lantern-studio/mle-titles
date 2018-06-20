@@ -57,7 +57,6 @@
 #include <X11/IntrinsicP.h>
 #endif /* __linux__ */
 
-
 // Include Inventor header files.
 #if defined(__linux__)
 //#include "mle/MleWalkViewer.h"
