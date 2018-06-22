@@ -118,7 +118,7 @@ initPlatform()
 MlBoolean initEnv(int argc, void **argv)
 {
     MleEventEntry *eventTable;
-    long numEvents;
+    int numEvents;
     void *(*initTitle)(void);
     char *workprint;
 
@@ -127,7 +127,7 @@ MlBoolean initEnv(int argc, void **argv)
         return ML_FALSE;
     } else {
         eventTable = (MleEventEntry *)argv[0];
-        numEvents = (long) argv[1];
+        numEvents = *((int *)argv[1]);
         workprint = (char *)argv[2];
         initTitle = (void *(*)(void))argv[3];
     }
