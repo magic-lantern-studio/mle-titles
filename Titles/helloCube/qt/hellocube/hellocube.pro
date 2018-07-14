@@ -15,7 +15,7 @@ unix:!macx: LIBS += \
 INCLUDEPATH += $$PWD/../include $$PWD/../src/roles $$PWD/../src/actors /opt/MagicLantern/include /usr/local/include
 DEPENDPATH += $$PWD/../build/build-hellocube-Desktop_Qt_5_8_0_GCC_64bit-Debug/src
 
-DEFINES += MLE_NOT_DLL MLE_REHEARSAL
+DEFINES += MLE_DIGITAL_WORKPRINT MLE_NOT_DLL MLE_REHEARSAL
 
 SOURCES += \
     main.cpp \
