@@ -7,7 +7,7 @@ TEMPLATE = app
 unix:!macx: LIBS += \
     -L$$PWD/../build/build-hellocube-Desktop_Qt_5_8_0_GCC_64bit-Debug/src \
     -lqtstage -lqtset -lqtrole -lqtmref \
-    -L/opt/MagicLantern/lib/mle/rehearsal -lmlert \
+    -L/opt/MagicLantern/lib/mle/inventor -lmlert \
     -L/opt/MagicLantern/lib -lDWP -lmlutil -lmlmath \
     -lCoin -lpng
 
@@ -15,7 +15,7 @@ unix:!macx: LIBS += \
 INCLUDEPATH += $$PWD/../include $$PWD/../src/roles $$PWD/../src/actors /opt/MagicLantern/include /usr/local/include
 DEPENDPATH += $$PWD/../build/build-hellocube-Desktop_Qt_5_8_0_GCC_64bit-Debug/src
 
-DEFINES += MLE_DIGITAL_WORKPRINT MLE_NOT_DLL MLE_REHEARSAL
+DEFINES += MLE_DIGITAL_WORKPRINT MLE_NOT_DLL
 
 SOURCES += \
     main.cpp \
