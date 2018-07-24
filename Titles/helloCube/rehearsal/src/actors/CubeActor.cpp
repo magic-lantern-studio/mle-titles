@@ -57,7 +57,7 @@ using namespace std;
 
 MLE_ACTOR_SOURCE(CubeActor, MleActor)
 
-#ifdef MLE_REHEARSAL
+#ifdef MLE_DIGITAL_WORKPRINT
 void
 CubeActor::initClass(void)
 {
@@ -71,7 +71,7 @@ CubeActor::initClass(void)
     // data set.
     mleRegisterActorMemberDataset(CubeActor, position, MLE_PROP_DATASET_TRANSFORM);
 }
-#endif /* MLE_REHEARSAL */
+#endif /* MLE_DIGITAL_WORKPRINT */
 
 CubeActor::CubeActor(void)
  : MleActor()
@@ -81,14 +81,18 @@ CubeActor::CubeActor(void)
     position.setValue(ML_SCALAR(0), ML_SCALAR(0), ML_SCALAR(0));
 
     // The initial geometry is a unit cube.
-    geometry[0] = 1.0; // Size in x dimension.
-    geometry[1] = 1.0; // Size in y dimension.
-    geometry[2] = 1.0; // Size in z dimension.
+    MleArray<float> _geometry(3);
+    _geometry[0] = 1.0; // Size in x dimension.
+    _geometry[1] = 1.0; // Size in y dimension.
+    _geometry[2] = 1.0; // Size in z dimension.
+    setGeometryProperty(_geometry);
 
     // The inital color of the cube is green.
-    color[0] = 0.0;  // Red component.
-    color[1] = 1.0;  // Green component.
-    color[2] = 0.0;  // Blue component.
+    MleArray<float> _color(3);
+    _color[0] = 0.0;  // Red component.
+    _color[1] = 1.0;  // Green component.
+    _color[2] = 0.0;  // Blue component.
+    setColorProperty(_color);
 }
 
 CubeActor::~CubeActor(void)
@@ -99,7 +103,8 @@ CubeActor::~CubeActor(void)
 void
 CubeActor::init()
 {
-    CubeRole *role = CubeRole::cast(getRole());
+    //CubeRole *role = CubeRole::cast(getRole());
+	CubeRole *role = (CubeRole *)getRole();
 
     // Push initial data retreived from the workprint into the role.
     role->cubePosition(position);
@@ -107,11 +112,12 @@ CubeActor::init()
     role->cubeColor(color[0], color[1], color[2]);
 }
 
-#ifdef MLE_REHEARSAL
+#ifdef MLE_DIGITAL_WORKPRINT
 void
 CubeActor::resolveEdit(const char *property)
 {
-    CubeRole *role = CubeRole::cast(getRole());
+    //CubeRole *role = CubeRole::cast(getRole());
+	CubeRole *role = (CubeRole *)getRole();
 
     if (! property || strcmp(property, "position") == 0)
         role->cubePosition(position);
@@ -120,12 +126,13 @@ CubeActor::resolveEdit(const char *property)
     else if(strcmp(property, "color") == 0)
         role->cubeColor(color[0], color[1], color[2]);
 }
-#endif /* MLE_REHEARSAL */
+#endif /* MLE_DIGITAL_WORKPRINT */
 
 void
 CubeActor::setPosition(MlVector3 &pos)
 {
-    CubeRole *role = CubeRole::cast(getRole());
+    //CubeRole *role = CubeRole::cast(getRole());
+    CubeRole *role = (CubeRole *)getRole();
 
     // Update position property ...
     position.setValue(pos.getValue());
@@ -136,7 +143,8 @@ CubeActor::setPosition(MlVector3 &pos)
 void
 CubeActor::setGeometry(MleArray<float> &vertices)
 {
-    CubeRole *role = CubeRole::cast(getRole());
+    //CubeRole *role = CubeRole::cast(getRole());
+    CubeRole *role = (CubeRole *)getRole();
 
     // Update geometry property ...
     geometry = vertices;

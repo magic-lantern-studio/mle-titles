@@ -57,7 +57,7 @@ using namespace std;
 
 MLE_ACTOR_SOURCE(CubeActor, MleActor)
 
-#ifdef MLE_REHEARSAL
+#ifdef MLE_DIGITAL_WORKPRINT
 void
 CubeActor::initClass(void)
 {
@@ -71,7 +71,7 @@ CubeActor::initClass(void)
     // data set.
     mleRegisterActorMemberDataset(CubeActor, position, MLE_PROP_DATASET_TRANSFORM);
 }
-#endif /* MLE_REHEARSAL */
+#endif /* MLE_DIGITAL_WORKPRINT */
 
 CubeActor::CubeActor(void)
  : MleActor()
@@ -107,7 +107,7 @@ CubeActor::init()
     role->cubeColor(color[0], color[1], color[2]);
 }
 
-#ifdef MLE_REHEARSAL
+#ifdef MLE_DIGITAL_WORKPRINT
 void
 CubeActor::resolveEdit(const char *property)
 {
@@ -120,7 +120,7 @@ CubeActor::resolveEdit(const char *property)
     else if(strcmp(property, "color") == 0)
         role->cubeColor(color[0], color[1], color[2]);
 }
-#endif /* MLE_REHEARSAL */
+#endif /* MLE_DIGITAL_WORKPRINT */
 
 void
 CubeActor::setPosition(MlVector3 &pos)

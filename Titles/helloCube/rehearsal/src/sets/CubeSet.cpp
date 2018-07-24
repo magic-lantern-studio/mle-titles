@@ -56,7 +56,7 @@ using namespace std;
 
 MLE_SET_SOURCE(CubeSet, MleSet)
 
-#ifdef MLE_REHEARSAL
+#ifdef MLE_DIGITAL_WORKPRINT
 void
 CubeSet::initClass(void)
 {
@@ -68,7 +68,7 @@ CubeSet::initClass(void)
     // data set.
     //mleRegisterSetMemberDataset(CubeSet, position, MLE_PROP_DATASET_TRANSFORM);
 }
-#endif /* MLE_REHEARSAL */
+#endif /* MLE_DIGITAL_WORKPRINT */
 
 CubeSet::CubeSet(void)
  : MleSet()
@@ -88,7 +88,7 @@ CubeSet::init()
 {
 }
 
-#ifdef MLE_REHEARSAL
+#ifdef MLE_DIGITAL_WORKPRINT
 void
 CubeSet::resolveEdit(const char *property)
 {
@@ -97,7 +97,7 @@ CubeSet::resolveEdit(const char *property)
       // TBD - nothing to do yet.
 #endif
 }
-#endif /* MLE_REHEARSAL */
+#endif /* MLE_DIGITAL_WORKPRINT */
 
 void
 CubeSet::setPosition(MlVector2 &pos)
