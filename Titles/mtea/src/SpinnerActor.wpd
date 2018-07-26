@@ -3,7 +3,7 @@
 	( HeaderFile spinnera.h ) 
 	( Package com.wizzer.mtea ) 
 	( SourceFile spinnera.cxx ) 
-	( DSOFile SpinnerActor.so ) 
+	( DSOFile SpinnerActor ) 
 	( PropertyDef model MediaRef 
 		( MediaRefClass model Mle3dModelMediaRef )
 	)

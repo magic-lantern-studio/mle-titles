@@ -1,7 +1,7 @@
 #DWP 1.0 ascii 
 ( Include $MLE_WORKPRINTS/titles/mtea/src/SpinnerActor.wpd ) 
 ( Actor a0 SpinnerActor 
-	( DSOFile SpinnerActor.so ) 
+	( DSOFile SpinnerActor ) 
 	( Property model MediaRef teapot ) 
 	( Property +brender texture MediaRef mandrill ) 
 	( Property +win32 colorMap MediaRef winshade ) 
