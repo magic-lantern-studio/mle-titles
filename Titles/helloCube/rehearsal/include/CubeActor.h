@@ -84,12 +84,12 @@ class SHAPEACTOR_API CubeActor : public MleActor
     // Initialize the actor and push initial property values to the role.
     virtual void init(void);
 
-#ifdef MLE_REHEARSAL
+#ifdef MLE_DIGITAL_WORKPRINT
     // Tools can change property values directly in actor memory.  This
     // function can be used to propagate the changes to its role
     // to make its states consistent.
     virtual void resolveEdit(const char *property);
-#endif  /* MLE_REHEARSAL */
+#endif  /* MLE_DIGITAL_WORKPRINT */
 
     // Set the current position.
     virtual void setPosition(MlVector3 &pos);

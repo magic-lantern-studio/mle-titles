@@ -62,6 +62,7 @@
 // Include Digital Workprint header files.
 #include "mle/Dwp.h"
 #include "mle/DwpItem.h"
+#include "mle/DwpLoad.h"
 
 // Include HelloCube title header files.
 #include "CubeStage.h"

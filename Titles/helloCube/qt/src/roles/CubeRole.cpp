@@ -47,9 +47,9 @@
 #include <iostream>
 
 // Include Inventor header files.
-#ifdef MLE_REHEARSAL
+#ifdef MLE_DIGITAL_WORKPRINT
 #include <Inventor/fields/SoSFFloat.h>
-#endif
+#endif /* MLE_DIGITAL_WORKPRINT */
 
 // Include Magic Lantern header files.
 #include "mle/mlMalloc.h"
@@ -72,22 +72,22 @@ CubeRole::CubeRole(MleActor *actor)
 
 CubeRole::~CubeRole()
 {
-#ifdef MLE_REHEARSAL
+#ifdef MLE_DIGITAL_WORKPRINT
 	// SoCube::~SoCube() is protected. Therefore we can't delete it from here.
 	// delete m_cube;
-#endif
+#endif /* MLE_DIGITAL_WORKPRINT */
 }
 
 void
 CubeRole::init()
 {
-#ifdef MLE_REHEARSAL
+#ifdef MLE_DIGITAL_WORKPRINT
 	m_cube = new SoCube();
 	m_material = new SoMaterial();
 	m_root = new SoSeparator();
 	m_root->addChild(m_material);
 	m_root->addChild(m_cube);
-#endif
+#endif /* MLE_DIGITAL_WORKPRINT */
 }
 
 void
@@ -103,7 +103,7 @@ CubeRole::cubeGeometry(const float width, const float height, const float depth)
      m_height = height; // Size in y dimension.
      m_depth  = depth;  // Size in z dimension.
 
-#ifdef MLE_REHEARSAL
+#ifdef MLE_DIGITAL_WORKPRINT
      SoSFFloat ivWidth;
      ivWidth.setValue(m_width);
      SoSFFloat ivHeight;
@@ -113,7 +113,7 @@ CubeRole::cubeGeometry(const float width, const float height, const float depth)
      m_cube->width  = ivWidth;
      m_cube->height = ivHeight;
      m_cube->depth  = ivDepth;
-#endif
+#endif /* MLE_DIGITAL_WORKPRINT */
 }
 
 void
@@ -123,9 +123,9 @@ CubeRole::cubeColor(const float red, const float green, const float blue)
 	m_green = green;
 	m_blue  = blue;
 
-#ifdef MLE_REHEARSAL
+#ifdef MLE_DIGITAL_WORKPRINT
 	m_material->diffuseColor.setValue(m_red, m_green, m_blue);
-#endif
+#endif /* MLE_DIGITAL_WORKPRINT */
 }
 
 void

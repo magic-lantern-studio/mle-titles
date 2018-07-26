@@ -47,11 +47,11 @@
 #define __CUBEROLE_H_
 
 // Include Inventor header files.
-#ifdef MLE_REHEARSAL
+#ifdef MLE_DIGITAL_WORKPRINT
 #include <Inventor/nodes/SoSeparator.h>
 #include <Inventor/nodes/SoCube.h>
 #include <Inventor/nodes/SoMaterial.h>
-#endif
+#endif /* MLE_DIGITAL_WORKPRINT */
 
 // Include Magic Lantern header files.
 #include "mle/mlTypes.h"
@@ -108,11 +108,11 @@ class SHAPEROLE_API CubeRole : public MleRole
     float m_green;
     float m_blue;
 
-#ifdef MLE_REHEARSAL
+#ifdef MLE_DIGITAL_WORKPRINT
     SoSeparator *m_root;
     SoCube *m_cube;
     SoMaterial *m_material;
-#endif
+#endif /* MLE_DIGITAL_WORKPRINT */
 };
 
 #endif /* __CUBEROLE_H_ */
