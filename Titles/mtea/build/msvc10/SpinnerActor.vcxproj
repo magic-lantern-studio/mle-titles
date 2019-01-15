@@ -66,15 +66,15 @@
   <PropertyGroup>
     <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Release\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Release\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\Release\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\Debug\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\Debug\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\Debug\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkIncremental>
   </PropertyGroup>
@@ -92,7 +92,7 @@
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <AdditionalIncludeDirectories>..\..\src;$(MLE_HOME)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>MLE_REHEARSAL;MLE_DIGITAL_WORKPRINT;MLE_DLL;MLE_MAKE_DLL;WIN32;NDEBUG;_WINDOWS;_USRDLL;SPINNERACTOR_EXPORTS;ML_MATH_DEBUG=0;ML_FIXED_POINT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>MLE_REHEARSAL;MLE_DIGITAL_WORKPRINT;MLE_DLL;MLE_MAKE_DLL;WIN32;NDEBUG;_WINDOWS;_USRDLL;SPINNERACTOR_EXPORTS;PROPERTY_EXPORTS;ML_MATH_DEBUG=0;ML_FIXED_POINT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -183,7 +183,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\..\src;$(MLE_HOME)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>MLE_DEBUG;MLE_REHEARSAL;MLE_DIGITAL_WORKPRINT;MLE_DLL;MLE_MAKE_DLL;WIN32;_DEBUG;_WINDOWS;_USRDLL;SPINNERACTOR_EXPORTS;ML_MATH_DEBUG=1;ML_FIXED_POINT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>MLE_DEBUG;MLE_REHEARSAL;MLE_DIGITAL_WORKPRINT;MLE_DLL;MLE_MAKE_DLL;WIN32;_DEBUG;_WINDOWS;_USRDLL;SPINNERACTOR_EXPORTS;PROPERTY_EXPORTS;ML_MATH_DEBUG=1;ML_FIXED_POINT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -230,7 +230,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\..\src;$(MLE_HOME)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>MLE_DEBUG;MLE_REHEARSAL;MLE_DIGITAL_WORKPRINT;MLE_DLL;MLE_MAKE_DLL;WIN32;_DEBUG;_WINDOWS;_USRDLL;SPINNERACTOR_EXPORTS;ML_MATH_DEBUG=1;ML_FIXED_POINT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>MLE_DEBUG;MLE_REHEARSAL;MLE_DIGITAL_WORKPRINT;MLE_DLL;MLE_MAKE_DLL;WIN32;_DEBUG;_WINDOWS;_USRDLL;SPINNERACTOR_EXPORTS;PROPERTY_EXPORTS;ML_MATH_DEBUG=1;ML_FIXED_POINT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeaderOutputFile>$(Platform)\$(Configuration)/SpinnerActor.pch</PrecompiledHeaderOutputFile>

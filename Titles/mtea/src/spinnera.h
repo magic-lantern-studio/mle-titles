@@ -14,7 +14,7 @@
 //
 // The MIT License (MIT)
 //
-// Copyright (c) 2018 Wizzer Works
+// Copyright (c) 2003-2019 Wizzer Works
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -54,6 +54,7 @@
 #include "mle/MleActor.h"
 
 // Include Magic Lantern Extension header files.
+#include "mle/propdef.h"
 #include "mle/3dmodelp.h"
 #include "mle/3dcomapp.h"
 #include "mle/3dtexmpp.h"
@@ -61,6 +62,7 @@
 #include "mle/3dqrotp.h"
 #include "mle/3dnscalp.h"
 
+// Include Actor's header files.
 #include "SpinnerActor.h"
 
 
@@ -71,7 +73,7 @@ class SPINNERACTOR_API SpinnerActor : public MleActor
   public:
 
     static void getProperty(MleObject *object, const char *name, unsigned char **value); // value is an output parameter.
-    static void setProperty(MleObject *object, const char *name, unsigned char *value); // value is an input parameter.
+    static void setProperty(MleObject *object, const char *name, unsigned char *value);  // value is an input parameter.
 
     // Property declarations.
     MLE_ACTOR_PROPERTY(Mle3dTranslationProperty, position, getPositionProperty, setPositionProperty)
@@ -81,10 +83,19 @@ class SPINNERACTOR_API SpinnerActor : public MleActor
 	MLE_ACTOR_PROPERTY(Mle3dTextureMapProperty, texture, getTextureProperty, setTextureProperty)
 	MLE_ACTOR_PROPERTY(Mle3dColorMapProperty, colorMap, getColorMapProperty, setColorMapProperty)
 
+	/**
+	 * Default constructor.
+	 */
 	SpinnerActor();
 
+	/**
+	 * Destructor.
+	 */
 	~SpinnerActor();
 
+	/**
+	 * Initialize the SpinnerActor.
+	 */
 	void init();
 
 	void update();
