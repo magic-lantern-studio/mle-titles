@@ -19,6 +19,6 @@ SpinnerActor_la_LDFLAGS = -module
 
 # Compiler options. Here we are adding the include directory
 # to be searched for headers included in the source code.
-SpinnerActor_la_CPPFLAGS = -DMLE_REHEARSAL -DMLE_NOT_DLL \
+SpinnerActor_la_CPPFLAGS = -DMLE_DIGITAL_WORKPRINT -DMLE_REHEARSAL -DMLE_NOT_DLL \
     -I$(top_srcdir)/include -I$(top_srcdir)/../../../src \
 	-I$(MLE_ROOT)/include
