@@ -20,7 +20,7 @@ LabelWidgetRole_la_LDFLAGS =  -module
 
 # Compiler options. Here we are adding the include directory
 # to be searched for headers included in the source code.
-LabelWidgetRole_la_CPPFLAGS = -DMLE_REHEARSAL -DMLE_NOT_DLL \
+LabelWidgetRole_la_CPPFLAGS = -DMLE_DIGITAL_WORKPRINT -DMLE_REHEARSAL -DMLE_NOT_DLL \
     -I$(top_srcdir)/include \
     -I$(MLE_ROOT)/include
 
