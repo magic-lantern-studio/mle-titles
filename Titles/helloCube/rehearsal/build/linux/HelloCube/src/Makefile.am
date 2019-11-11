@@ -9,7 +9,7 @@ helloCube_LDADD = \
 	$(MLE_ROOT)/lib/libDWP.so \
 	$(MLE_ROOT)/lib/libmlutil.so \
 	$(MLE_ROOT)/lib/libmlmath.so \
-	-lCoin -lSoXt -lX11 -lXt -ldl
+	-lCoin -lSoXt -lX11 -lXm -lXt -ldl
 
 #-lCoin -lSoXt -lX11 -lXt -ldl
 
