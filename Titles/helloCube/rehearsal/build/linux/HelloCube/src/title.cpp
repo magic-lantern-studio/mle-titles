@@ -65,7 +65,8 @@
 #include "mle/DwpLoad.h"
 
 // Include HelloCube title header files.
-#include "CubeStage.h"
+//#include "CubeStage.h"
+#include "mle/ivstage.h"
 
 // External declarations.
 extern void mleDwpInit();
@@ -122,11 +123,15 @@ MlBoolean initEnv(int argc, void **argv)
 	    g_theTitle->m_titleData = NULL;
 
     // Create and initialize stage.
-    new CubeStage();
-    ((CubeStage *)MleStage::g_theStage)->init();
+    //new CubeStage();
+    //((CubeStage *)MleStage::g_theStage)->init();
+    new MleIvStage();
+    ((MleIvStage *)MleStage::g_theStage)->init();
+
 
 	// Initialize the platform data.
-	g_theTitle->m_platformData = ((CubeStage *)MleStage::g_theStage)->initPlatform();
+	//g_theTitle->m_platformData = ((CubeStage *)MleStage::g_theStage)->initPlatform();
+	g_theTitle->m_platformData = ((MleIvStage *)MleStage::g_theStage)->initPlatform();
 
     // Load the first group.
     (void) mlLoadBootScene(g_workprint);

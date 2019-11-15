@@ -2,16 +2,26 @@ bin_PROGRAMS = helloCube
 
 helloCube_SOURCES = helloCube.cpp title.cpp callback.cpp
 
-helloCube_LDADD = \
-    $(top_srcdir)/../CubeStage/CubeStage/.libs/CubeStage.so \
-    $(top_srcdir)/../CubeSet/CubeSet/.libs/CubeSet.so \
-	$(MLE_ROOT)/lib/mle/inventor/libmlert.so \
-	$(MLE_ROOT)/lib/libDWP.so \
-	$(MLE_ROOT)/lib/libmlutil.so \
-	$(MLE_ROOT)/lib/libmlmath.so \
-	-lCoin -lSoXt -lX11 -lXm -lXt -ldl
+#helloCube_LDADD = \
+#    $(top_srcdir)/../CubeStage/CubeStage/.libs/CubeStage.so \
+#    $(top_srcdir)/../CubeSet/CubeSet/.libs/CubeSet.so \
+#    $(top_srcdir)/../CubeRole/CubeRole/.libs/CubeRole.so \
+#    $(MLE_ROOT)/lib/mle/inventor/libmlert.so \
+#    $(MLE_ROOT)/lib/libDWP.so \
+#    $(MLE_ROOT)/lib/libmlutil.so \
+#    $(MLE_ROOT)/lib/libmlmath.so \
+#    -lCoin -lSoXt -lX11 -lXm -lXt -ldl
 
 #-lCoin -lSoXt -lX11 -lXt -ldl
+
+helloCube_LDADD = \
+    $(top_srcdir)/../CubeRole/CubeRole/.libs/CubeRole.so \
+    $(MLE_ROOT)/lib/mle/inventor/MleIvStage.so \
+    $(MLE_ROOT)/lib/mle/inventor/libmlert.so \
+    $(MLE_ROOT)/lib/libDWP.so \
+    $(MLE_ROOT)/lib/libmlutil.so \
+    $(MLE_ROOT)/lib/libmlmath.so \
+    -lCoin -lSoXt -lX11 -lXm -lXt -ldl
 
 helloCube_LDFLAGS = -Wl,--no-as-needed
 
