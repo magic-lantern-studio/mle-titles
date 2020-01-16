@@ -5,15 +5,15 @@ TARGET = hellocube
 TEMPLATE = app
 
 unix:!macx: LIBS += \
-    -L$$PWD/../build/build-hellocube-Desktop_Qt_5_8_0_GCC_64bit-Debug/src \
+    -L$$PWD/../build/build-hellocube-Desktop_Qt_5_12_6_GCC_64bit-Debug/src \
     -lqtstage -lqtset -lqtrole -lqtmref \
     -L/opt/MagicLantern/lib/mle/inventor -lmlert \
     -L/opt/MagicLantern/lib -lDWP -lmlutil -lmlmath \
     -lCoin -lpng
 
-#INCLUDEPATH += $$PWD/../build/build-mleqtstage-Desktop_Qt_5_8_0_GCC_64bit-Debug
+#INCLUDEPATH += $$PWD/../build/build-mleqtstage-Desktop_Qt_5_12_6_GCC_64bit-Debug
 INCLUDEPATH += $$PWD/../include /opt/MagicLantern/include /usr/local/include
-DEPENDPATH += $$PWD/../build/build-hellocube-Desktop_Qt_5_8_0_GCC_64bit-Debug/src
+DEPENDPATH += $$PWD/../build/build-hellocube-Desktop_Qt_5_12_6_GCC_64bit-Debug/src
 
 DEFINES += MLE_DIGITAL_WORKPRINT MLE_NOT_DLL
 
