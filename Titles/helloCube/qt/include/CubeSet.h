@@ -48,6 +48,9 @@
 
 // Include Inventor header files.
 #include <Inventor/nodes/SoSeparator.h>
+#include <Inventor/nodes/SoPerspectiveCamera.h>
+#include <Inventor/nodes/SoRotation.h>
+#include <Inventor/sensors/SoFieldSensor.h>
 
 // Include Magic Lantern header files.
 #include "mle/mlTypes.h"
@@ -92,11 +95,24 @@ class CUBESETSHARED_EXPORT CubeSet : public MleSet
     SoSeparator *getRoot(void)
     { return m_root; }
 
+    // Get the Inventor camera for the Set.
+    SoPerspectiveCamera *getCamera()
+    { return m_camera; }
+
+    // A callback used for light rotation sensor.
+    static void cameraCB(CubeSet *set, SoFieldSensor *);
+
   protected:
 
     // The root of the Inventor scene graph for the set.
     SoSeparator *m_root;
 
+  private:
+
+    // The set's camera.
+    SoPerspectiveCamera *m_camera;
+    // The set's light transform (for camera's directional light).
+    SoRotation *m_lightRot;
 };
 
 #endif /* __CUBESET_H_ */

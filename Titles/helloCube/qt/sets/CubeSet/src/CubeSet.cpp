@@ -46,6 +46,14 @@
 // Include system header files.
 #include <iostream>
 
+// Include Inventor header files.
+#include <Inventor/nodes/SoPerspectiveCamera.h>
+#include <Inventor/nodes/SoTransformSeparator.h>
+#include <Inventor/nodes/SoRotation.h>
+#include <Inventor/nodes/SoLight.h>
+#include <Inventor/nodes/SoDirectionalLight.h>
+#include <Inventor/sensors/SoFieldSensor.h>
+
 // Include Magic Lantern header files.
 #include "mle/mlMalloc.h"
 
@@ -65,8 +73,29 @@ CubeSet::CubeSet(void)
     // The initial position is set to the origin, (0, 0).
     position.setValue(ML_SCALAR(0), ML_SCALAR(0));
 
+    // Create the set root.
     m_root = new SoSeparator();
     m_root->ref();
+
+    // Create a perspective camera.
+    m_camera = new SoPerspectiveCamera;
+    m_root->addChild(m_camera);
+    m_camera->position.setValue(0,0,3);
+
+    // Create a headlight.
+    SoTransformSeparator *lightSep = new SoTransformSeparator;
+    m_root->addChild(lightSep);
+    m_lightRot = new SoRotation;
+    SoLight *light = new SoDirectionalLight;
+    lightSep->addChild(m_lightRot);
+    lightSep->addChild(light);
+    m_lightRot->rotation.setValue(m_camera->orientation.getValue());
+
+    // Add a sensor on the camera so the headlight points in the same
+    // direction as the camera.
+    SoFieldSensor *sensor = new SoFieldSensor((SoSensorCB *) cameraCB, this);
+    sensor->attach(&m_camera->orientation);
+    sensor->setPriority(0);
 }
 
 CubeSet::~CubeSet(void)
@@ -80,10 +109,6 @@ CubeSet::~CubeSet(void)
 void
 CubeSet::init()
 {
-    // Set up camera.
-
-    // Set up light.
-
     // Expecting a CubeStage has already been instantiated.
     CubeStage *stage = CubeStage::cast(MleStage::g_theStage);
     stage->addSet(NULL, this);
@@ -135,4 +160,12 @@ CubeSet::setProperty(MleObject *object, const char *name, unsigned char *value)
         // TBD: log warning.
         cout << "***** ERROR: Unknown CubeSet property: " << name << endl;
     }
+}
+
+// Camera rotation sensor callback.
+void
+CubeSet::cameraCB(CubeSet *set, SoFieldSensor *)
+{
+    set->m_lightRot->rotation.setValue(
+        set->m_camera->orientation.getValue());
 }
