@@ -58,6 +58,14 @@
 // Include Title header files.
 #include "ShapeSet.h"
 
+class SbVec2s;
+class SoSeparator;
+class SoCamera;
+class SoSwitch;
+class SoPath;
+class SoRotation;
+class SoFieldSensor;
+
 class SHAPESET_API CubeSet : public MleSet
 {
     MLE_SET_HEADER(CubeSet);
@@ -82,6 +90,9 @@ class SHAPESET_API CubeSet : public MleSet
     // Initialize the set.
     virtual void init(void);
 
+    // Attach a child role to its parent, or the set itself.
+    virtual void attach(MleRole *parent,MleRole *child);
+
 #ifdef MLE_DIGITAL_WORKPRINT
     // Tools can change property values directly on the set. This
     // function can be used to propagate the changes and
@@ -93,13 +104,27 @@ class SHAPESET_API CubeSet : public MleSet
     virtual void setPosition(MlVector2 &pos);
 
     // Get the Inventor scene graph for the set.
-    SoSeparator *getRoot(void)
-    { return m_root; }
+    SoSeparator *getRoot(void) { return m_root; }
+
+    // Get the camera for the set.
+    SoCamera *getCamera(void) const;
 
   protected:
 
     // The root of the Inventor scene graph for the set.
     SoSeparator *m_root;
+	// Switch over ortho and perspective cameras.
+    SoSwitch *m_cameraSwitch;
+
+    void getStageSize(int *width, int *height);
+
+#ifdef MLE_DIGITAL_WORKPRINT
+    // Light rotation (to track stage camera heading).
+    SoRotation *m_lightRot;
+
+    static void cameraCB(CubeSet *set, SoFieldSensor *);
+
+#endif /* MLE_DIGITAL_WORKPRINT */
 
 };
 

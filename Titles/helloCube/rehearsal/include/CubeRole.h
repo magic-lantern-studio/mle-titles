@@ -93,6 +93,10 @@ class SHAPEROLE_API CubeRole : public MleRole
     // this role every cycle.
     virtual void draw(void *data);
 
+#ifdef MLE_DIGITAL_WORKPRINT
+    SoSeparator *getRoot() { return m_root; }
+#endif /* MLE_DIGITAL_WORKPRINT */
+
   protected:
 
     // Cube coordinate position.

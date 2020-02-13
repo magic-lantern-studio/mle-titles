@@ -68,6 +68,17 @@ CubeRole::CubeRole(MleActor *actor)
 	m_red = 1.0;
 	m_green = 0.0;
 	m_blue = 0.0;
+
+#ifdef MLE_DIGITAL_WORKPRINT
+	// Note: this can not be done during role initialization since the Mle3dSet is
+	// expecting the m_root to already exist when it is attached to the set (before
+	// init() is called.)
+	m_cube = new SoCube();
+	m_material = new SoMaterial();
+	m_root = new SoSeparator();
+	m_root->addChild(m_material);
+	m_root->addChild(m_cube);
+#endif /* MLE_DIGITAL_WORKPRINT */
 }
 
 CubeRole::~CubeRole()
@@ -81,13 +92,8 @@ CubeRole::~CubeRole()
 void
 CubeRole::init()
 {
-#ifdef MLE_DIGITAL_WORKPRINT
-	m_cube = new SoCube();
-	m_material = new SoMaterial();
-	m_root = new SoSeparator();
-	m_root->addChild(m_material);
-	m_root->addChild(m_cube);
-#endif /* MLE_DIGITAL_WORKPRINT */
+    // Note: init() is called after the bound actor has been initialized.
+	// This occurs after the role has been attached to the set.
 }
 
 void
