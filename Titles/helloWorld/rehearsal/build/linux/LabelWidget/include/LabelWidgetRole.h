@@ -14,7 +14,7 @@
 //
 // The MIT License (MIT)
 //
-// Copyright (c) 2018 Wizzer Works
+// Copyright (c) 2018-2020 Wizzer Works
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -47,11 +47,14 @@
 #define __LABELWIDGETROLE_H_
 
 // Include Inventor header files.
+#include <Inventor/fields/SoMFString.h>
+#include <Inventor/nodes/SoText2.h>
+#include <Inventor/nodes/SoTranslation.h>
 
 // Include Magic Lantern header files.
 #include "mle/mlTypes.h"
 #include "math/vector.h"
-#include "mle/2drole.h"
+#include "mle/MleIv3dRole.h"
 
 // Include Title header files.
 #include "WidgetRole.h"
@@ -59,7 +62,7 @@
 // Declare external classes.
 class MleActor;
 
-class WIDGETROLE_API LabelWidgetRole : public Mle2dRole
+class WIDGETROLE_API LabelWidgetRole : public Mle3dRole
 {
 
     MLE_ROLE_HEADER(LabelWidgetRole);
@@ -83,13 +86,28 @@ class WIDGETROLE_API LabelWidgetRole : public Mle2dRole
     // this role every cycle.
     virtual void draw(void *data);
 
+    // Set an attribute value on this role.
+    virtual void setAttribute(const char *name, void *value);
+
+    // Get the value of an attribute from this role.
+    virtual void *getAttribute(const char *name0);
+
   protected:
 
-    // Label origin (lower left) in screen coordinate.
+    // The role's label origin (lower left) in screen coordinates.
     MlVector2 m_labelPosition;
 
-    // Label text;
+    // The role's label.
     char *m_label;
+
+  private:
+
+    // Inventor text container for label.
+    SoMFString _labelStr;
+    // Inventor text node.
+    SoText2 *_label;
+    // Inventor text translation for label.
+    SoTranslation *_textTranslate;
 };
 
 #endif /* __LABELWIDGETROLE_H_ */

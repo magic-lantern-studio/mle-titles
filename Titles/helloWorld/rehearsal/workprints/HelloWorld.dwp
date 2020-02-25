@@ -1,9 +1,7 @@
 #DWP 1.0 ascii
-( Include $MLE_WORKPRINTS/Parts/sets/inventor/workprints/MleIv2dSet.wpf )
+( Include $MLE_WORKPRINTS/MleIv3dSet.wpf )
 ( Stage MyStage MleIvStage
-  ( Set 2dSet Mle2dSet
-    ( Property position MlVector2 0.0 0.0 )
-    ( Property size MlVector2 640.0 480.0 )
+  ( Set 3dSet Mle3dSet
   )
 )
 ( ActorDef LabelWidgetActor
@@ -11,7 +9,7 @@
   ( PropertyDef id string )
   ( PropertyDef position MlVector2 )
   ( PropertyDef text string )
-  ( RoleSetMapping LabelWidgetRole Mle2dSet )
+  ( RoleSetMapping LabelWidgetRole Mle3dSet )
 )
 ( RoleDef LabelWidgetRole
   ( HeaderFile roles/LabelWidgetRole.h )
@@ -22,9 +20,9 @@
     ( HeaderFile mle/MleGroup.h ) 
     ( Actor label LabelWidgetActor
       ( Property id string "LabelWidget" )
-      ( Property position MlVector2 50.0 50.0 )
+      ( Property position MlVector2 0.5 0.5 )
       ( Property text string "Hello World!" )
-      ( RoleBinding LabelWidgetRole 2dSet )
+      ( RoleBinding LabelWidgetRole 3dSet )
     )
   ) 
 ) 

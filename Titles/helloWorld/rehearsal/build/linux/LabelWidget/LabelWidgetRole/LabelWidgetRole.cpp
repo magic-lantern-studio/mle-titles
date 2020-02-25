@@ -14,7 +14,7 @@
 //
 // The MIT License (MIT)
 //
-// Copyright (c) 2018 Wizzer Works
+// Copyright (c) 2018-2020 Wizzer Works
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -43,37 +43,71 @@
 //
 // COPYRIGHT_END
 
+// Include system header files.
+#include <iostream>
 #include <string.h>
-//#include <qdebug.h>
+
+// Include Inventor header files.
+#include <Inventor/nodes/SoFont.h>
 
 // Include Magic Lantern header files.
 #include "mle/mlMalloc.h"
 #include "mle/MleActor.h"
 #include "mle/MleRole.h"
+#include "mle/MleStage.h"
 
 // Include HelloWorld header files.
 #include "LabelWidgetActor.h"
 #include "LabelWidgetRole.h"
 
-MLE_ROLE_SOURCE(LabelWidgetRole, Mle2dRole)
+using namespace std;
+
+MLE_ROLE_SOURCE(LabelWidgetRole, Mle3dRole)
 
 
 LabelWidgetRole::LabelWidgetRole(MleActor *actor)
- : Mle2dRole(actor)
+ : Mle3dRole(actor)
 {
     m_labelPosition.setValue(ML_SCALAR(0), ML_SCALAR(0));
     m_label = NULL;
+
+    // Specify the font.
+    SoFont *font = new SoFont;
+    font->name.setValue("Times-Roman");
+    font->size.setValue(24.0);
+
+    // Specify the location.
+    _textTranslate = new SoTranslation;
+    //textTranslate->translation.setValue(0.25, 0.0, 0.25);
+   _textTranslate->translation.setValue(m_labelPosition[0], m_labelPosition[1], 0.25);
+   _textTranslate->ref();
+
+    // Initialize internal implementation of role.
+    _label = new SoText2();
+    _label->ref();
+    _label->string = "Default Label";
+
+    // Add label to scene graph.
+    m_root->addChild(font);
+    m_root->addChild(_textTranslate);
+	m_root->addChild(_label);
 }
 
 LabelWidgetRole::~LabelWidgetRole(void)
 {
     if (m_label != NULL) mlFree(m_label);
+    // Note: unable to delete SoText2 because destructor is protected.
+    //if (_label != NULL) delete _label;
+    _textTranslate->unref();
+    _label->unref();
 }
 
 void
 LabelWidgetRole::labelLocation(MlVector2 &pos)
 {
     m_labelPosition.setValue(pos.getValue());
+
+    _textTranslate->translation.setValue(m_labelPosition[0], m_labelPosition[1], 0.25);
 }
 
 void
@@ -87,38 +121,43 @@ LabelWidgetRole::label(const char *str)
         strcpy(m_label, str);
     } else
         m_label = NULL;
+
+	_labelStr.setValue(m_label);
+	_label->string = _labelStr;
 }
 
 void
 LabelWidgetRole::draw(void *data)
 {
-    //qDebug() << "LabelWidgetRole: rendering label.";
+	cout << "LabelWidgetRole: rendering label." << "\n";
 
     if (data != NULL)
     {
-        // 'data' should be a reference to a Set's offscreen buffer.
-        // Draw the the label into the Set's offscreen buffer.
-/*
-        QPixmap *buffer = (QPixmap *) data;
-        QPainter painter(buffer);
-        int x = m_labelPosition[0];
-        int y = m_labelPosition[1];
-
-        // Set pen attributes.
-        QPen colorStyle;
-        colorStyle.setStyle(Qt::SolidLine);
-        colorStyle.setWidth(2);
-        colorStyle.setColor(QColor(255, 0, 0)); // red, no transparency
-        painter.setPen(colorStyle);
-
-        // Set font attributes.
-        QFont font = painter.font() ;
-        font.setPointSize(18);
-        painter.setFont(font);
-
-        // Render the text.
-        if (m_label != NULL)
-            painter.drawText(QPoint(x, y), m_label);
-*/
+        // This widget is designed for an Inventor Mle2dSet. So the data
+    	// argument should always be NULL.
     }
+}
+
+void
+LabelWidgetRole::setAttribute(const char *name, void *value)
+{
+	if (! strcmp(name, "position")) {
+		MlVector2 *position = (MlVector2 *)value;
+		this->labelLocation(*position);
+	} else if (! strcmp(name, "label")) {
+		const char *str = (const char *)value;
+		this->label(str);
+	}
+}
+
+void *
+LabelWidgetRole::getAttribute(const char *name)
+{
+	if (! strcmp(name, "position")) {
+		return (void *)&m_labelPosition;
+	} else if (! strcmp(name, "label")) {
+		return (void *)m_label;
+	} else {
+	    return NULL;
+	}
 }

@@ -14,7 +14,7 @@
 //
 // The MIT License (MIT)
 //
-// Copyright (c) 2018 Wizzer Works
+// Copyright (c) 2018-2020 Wizzer Works
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -48,10 +48,10 @@
 
 // Include Magic Lantern header files.
 #include "mle/mlMalloc.h"
+#include "mle/MleRole.h"
 
 // Include HelloWorld header files.
 #include "LabelWidgetActor.h"
-#include "LabelWidgetRole.h"
 
 using namespace std;
 
@@ -77,13 +77,11 @@ LabelWidgetActor::LabelWidgetActor(void)
  : MleActor()
 {
     // Set default property values.
-    //id = (char *) mlMalloc(sizeof(char) * 13);
-    //strcpy(id, "Label Widget");
-    id = NULL;
+    id = (char *) mlMalloc(sizeof(char) * 13);
+    strcpy(id, "Label Widget");
     position.setValue(ML_SCALAR(0), ML_SCALAR(0));
-    //text = (char *) mlMalloc(sizeof(char) * 11);
-    //strcpy(text, "Text Label");
-    text = NULL;
+    text = (char *) mlMalloc(sizeof(char) * 11);
+    strcpy(text, "Text Label");
 }
 
 LabelWidgetActor::~LabelWidgetActor(void)
@@ -95,23 +93,25 @@ LabelWidgetActor::~LabelWidgetActor(void)
 void
 LabelWidgetActor::init()
 {
-    LabelWidgetRole *role = LabelWidgetRole::cast(getRole());
+	MleRole *role = getRole();
 
-    // Push initial data got from the workprint to the role.
-    role->labelLocation(position);
-    role->label(text);
+	// Push initial data got from the workprint to the role.
+	role->setAttribute("position", (void *)&position);
+	role->setAttribute("label", (void *)text);
 }
 
 #ifdef MLE_REHEARSAL
 void
 LabelWidgetActor::resolveEdit(const char *property)
 {
-    LabelWidgetRole *role = LabelWidgetRole::cast(getRole());
+	MleRole *role = getRole();
 
-    if (! property || strcmp(property, "position") == 0)
-        role->labelLocation(position);
-    else if(strcmp(property, "text") == 0)
-        role->label(text);
+	if (! property || strcmp(property, "position") == 0)
+	    role->setAttribute("position", (void *)&position);
+	else if(strcmp(property, "text") == 0)
+	    role->setAttribute("label", (void *)text);
+
+
 }
 #endif /* MLE_REHEARSAL */
 
@@ -126,23 +126,23 @@ LabelWidgetActor::setId(char *str)
 void
 LabelWidgetActor::setPosition(MlVector2 &pos)
 {
-    LabelWidgetRole *role = LabelWidgetRole::cast(getRole());
+	MleRole *role = getRole();
 
-    // Update position property and push the update to the role.
-    position.setValue(pos.getValue());
-    role->labelLocation(position);
+	// Update position property and push the update to the role.
+	position.setValue(pos.getValue());
+	role->setAttribute("position", (void *)&position);
 }
 
 void
 LabelWidgetActor::setText(char *str)
 {
-    LabelWidgetRole *role = LabelWidgetRole::cast(getRole());
+	MleRole *role = getRole();
 
-    // Update text property and push the update to the role.
+	// Update text property and push the update to the role.
     if (text != NULL) mlFree(text);
     text = (char *) mlMalloc(strlen(str) + 1);
     strcpy(text, str);
-    role->label(text);
+    role->setAttribute("label", (void *)text);
 }
 
 void
