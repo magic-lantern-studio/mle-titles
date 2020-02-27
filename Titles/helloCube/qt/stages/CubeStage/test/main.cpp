@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
     // Create the stage and initialize it.
     CubeStage *theStage = new CubeStage();
     theStage->init();
-    theStage->setName("QtStage Unit Test");
+    theStage->setName("CubeStage Unit Test");
     theStage->show();
 
     // Quit after 10 seconds. For platforms that do not have windows that are closeable.
