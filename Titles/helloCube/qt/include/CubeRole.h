@@ -113,9 +113,13 @@ class CUBEROLESHARED_EXPORT CubeRole : public MleRole
 
   private:
 
+    // The role's Inventor scene graph root.
     SoSeparator *m_root;
+    // The role's Inventor cube geometry.
     SoCube *m_cube;
+    // The role's Inventor cube position.
     SoTranslation *m_translation;
+    // The role's Inventor cube color.
     SoMaterial *m_material;
 };
 
