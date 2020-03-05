@@ -14,7 +14,7 @@
 //
 // The MIT License (MIT)
 //
-// Copyright (c) 2018 Wizzer Works
+// Copyright (c) 2018-2020 Wizzer Works
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,9 @@
 //
 // COPYRIGHT_END
 
+// Include system header files.
+#include <iostream>
+
 // Include Qt header files.
 #include <QApplication>
 #include <QScreen>
@@ -69,9 +72,11 @@
 #include "mlPlatformData.h"
 
 // Include Magic Lantern Qt Parts header files.
-#include "mle/qt/qtstage.h"
 
 // Include title header files.
+#include "mle/qt/CubeStage.h"
+
+using namespace std;
 
 // External declarations.
 extern void mleDwpInit();
@@ -144,6 +149,11 @@ MlBoolean initEnv(int argc, void **argv)
     // Load the Digital Workprint.
     mleDwpInit();
     g_workprint = mlLoadWorkprint(workprint);
+    if (g_workprint == NULL) {
+        // Unable to load Digital Workprint.
+        cout << "Unable to load Digital Workprint " << workprint << ".\n";
+        return ML_FALSE;
+    }
 
     // Initialize scheduler.
     g_theTitle->m_theScheduler = new MleScheduler;
@@ -164,7 +174,7 @@ MlBoolean initEnv(int argc, void **argv)
         g_theTitle->m_titleData = NULL;
 
     // Create and initialize stage.
-    QtStage *theStage = new QtStage();
+    CubeStage *theStage = new CubeStage();
     theStage->init();
 
     // Load the first group.
@@ -178,11 +188,11 @@ MlBoolean initEnv(int argc, void **argv)
 }
 
 
-int mainLoop(const QGuiApplication &app)
+int mainLoop(const QApplication &app)
 {
     int status = 0;
 
-    while(! QtStage::g_doExit) {
+    while(! CubeStage::g_doExit) {
         // Execute the scheduled phases in order of insertion.
         g_theTitle->m_theScheduler->goAll();
 

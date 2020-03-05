@@ -14,7 +14,7 @@
 //
 // The MIT License (MIT)
 //
-// Copyright (c) 2018 Wizzer Works
+// Copyright (c) 2018-2020 Wizzer Works
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -69,7 +69,7 @@
 extern MleEventEntry g_eventTable[];
 extern int g_numEvents;
 extern MlBoolean initEnv(int, void **);
-extern int mainLoop(const QGuiApplication &);
+extern int mainLoop(const QApplication &);
 extern MlBoolean cleanupEnv(void);
 
 // Argument structures for parser.

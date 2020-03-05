@@ -66,6 +66,20 @@ using namespace std;
 
 MLE_SET_SOURCE(CubeSet, MleSet)
 
+#ifdef MLE_DIGITAL_WORKPRINT
+void
+CubeSet::initClass(void)
+{
+    mleRegisterSetClass(CubeSet, MleSet);
+
+    mleRegisterSetMember(CubeSet, position, MlVector2);
+
+    // Mark all the properties that belongs to the "transform" property
+    // data set.
+    //mleRegisterSetMemberDataset(CubeSet, position, MLE_PROP_DATASET_TRANSFORM);
+}
+#endif /* MLE_DIGITAL_WORKPRINT */
+
 CubeSet::CubeSet(void)
  : MleSet()
 {
@@ -96,6 +110,11 @@ CubeSet::CubeSet(void)
     SoFieldSensor *sensor = new SoFieldSensor((SoSensorCB *) cameraCB, this);
     sensor->attach(&m_camera->orientation);
     sensor->setPriority(0);
+
+    // Attach the Set scene graph to the stage
+    //   This is a stage-specific protocol, not a base class feature
+    CubeStage *stage = CubeStage::cast(MleStage::g_theStage);
+    stage->addSet(NULL, this);
 }
 
 CubeSet::~CubeSet(void)
@@ -110,10 +129,10 @@ void
 CubeSet::init()
 {
     // Expecting a CubeStage has already been instantiated.
-    CubeStage *stage = CubeStage::cast(MleStage::g_theStage);
-    stage->addSet(NULL, this);
+    //CubeStage *stage = CubeStage::cast(MleStage::g_theStage);
+    //stage->addSet(NULL, this);
 
-    MleSet::g_currentSet = this;
+    //MleSet::g_currentSet = this;
 }
 
 // Attach the child role to the set.
@@ -133,6 +152,17 @@ CubeSet::setPosition(MlVector2 &pos)
     // Update position property.
     position.setValue(pos.getValue());
 }
+
+#ifdef MLE_DIGITAL_WORKPRINT
+void
+CubeSet::resolveEdit(const char *property)
+{
+#if 0
+    if (! property || strcmp(property, "position") == 0)
+      // TBD - nothing to do yet.
+#endif
+}
+#endif /* MLE_DIGITAL_WORKPRINT */
 
 void
 CubeSet:: getProperty(MleObject *object, const char *name, unsigned char **value)

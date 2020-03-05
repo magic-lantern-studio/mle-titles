@@ -1,30 +1,45 @@
 QT += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = hellocube
+TARGET = helloCube
 TEMPLATE = app
 
+CONFIG(debug, debug|release) {
+# debug build
 unix:!macx: LIBS += \
-    -L$$PWD/../build/build-hellocube-Desktop_Qt_5_12_6_GCC_64bit-Debug/src \
-    -lqtstage -lqtset -lqtrole -lqtmref \
-    -L/opt/MagicLantern/lib/mle/inventor -lmlert \
+    -L$$PWD/../build/build-CubeStage-Desktop_Qt_4_8_7_GCC_64bit-Debug/src -lCubeStage \
+    -L$$PWD/../../../sets/CubeSet/build/build-CubeSet-Desktop_Qt_4_8_7_GCC_64bit-Debug/src -lCubeSet \
+    -L$$PWD/../../../roles/CubeRole/build/build-CubeRole-Desktop_Qt_4_8_7_GCC_64bit-Debug/src -lCubeRole \
+    -L/opt/MagicLantern/lib/mle/qt -lmlert \
     -L/opt/MagicLantern/lib -lDWP -lmlutil -lmlmath \
-    -lCoin -lpng
+    -lCoin -lSoQt
 
-#INCLUDEPATH += $$PWD/../build/build-mleqtstage-Desktop_Qt_5_12_6_GCC_64bit-Debug
-INCLUDEPATH += $$PWD/../include /opt/MagicLantern/include /usr/local/include
-DEPENDPATH += $$PWD/../build/build-hellocube-Desktop_Qt_5_12_6_GCC_64bit-Debug/src
+INCLUDEPATH += $$PWD/../include $$PWD/../../../include /opt/MagicLantern/include
+DEPENDPATH += $$PWD/../build/build-CubeStage-Desktop_Qt_4_8_7_GCC_64bit-Debug/src
+} else {
+# release build
+unix:!macx: LIBS += \
+    -L$$PWD/../build/build-CubeStage-Desktop_Qt_4_8_7_GCC_64bit-Release/src -lCubeStage \
+    -L$$PWD/../../../sets/CubeSet/build/build-CubeSet-Desktop_Qt_4_8_7_GCC_64bit-Release/src -lCubeSet \
+    -L$$PWD/../../../roles/CubeRole/build/build-CubeRole-Desktop_Qt_4_8_7_GCC_64bit-Release/src -lCubeRole \
+    -L/opt/MagicLantern/lib/mle/qt -lmlert \
+    -L/opt/MagicLantern/lib -lDWP -lmlutil -lmlmath \
+    -lCoin -lSoQt
+
+INCLUDEPATH += $$PWD/../include $$PWD/../../../include /opt/MagicLantern/include
+DEPENDPATH += $$PWD/../build/build-CubeStage-Desktop_Qt_4_8_7_GCC_64bit-Release/src
+}
 
 DEFINES += MLE_DIGITAL_WORKPRINT MLE_NOT_DLL
 
 SOURCES += \
+    callback.cpp \
     main.cpp \
-    title.cpp \
-    callback.cpp
+    title.cpp
 
 HEADERS += \
-    mlPlatformData.h \
-    callback.h
+    callback.h \
+    mlPlatformData.h
 
 win32 {
     copyfiles.commands += @echo NOW COPYING ADDITIONAL FILES &

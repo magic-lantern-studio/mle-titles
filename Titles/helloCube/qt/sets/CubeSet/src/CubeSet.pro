@@ -6,7 +6,7 @@ TEMPLATE = lib
 DEFINES += CUBESET_LIBRARY
 
 CONFIG += c++11
-CONFIG += staticlib
+#CONFIG += staticlib
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -21,7 +21,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 INCLUDEPATH += $$PWD/../../../include /opt/MagicLantern/include /usr/local/include
 
-DEFINES += MLE_DIGITAL_PLAYPRINT MLE_NOT_DLL
+DEFINES += MLE_DIGITAL_WORKPRINT MLE_NOT_DLL
 
 SOURCES += \
     CubeSet.cpp
@@ -32,7 +32,7 @@ HEADERS += \
 
 # Default rules for deployment.
 unix {
-    target.path = /opt/MagicLantern/lib
+    target.path = /opt/MagicLantern/lib/mle/qt
     headers.path = /opt/MagicLantern/include/mle/qt
     headers.files = $$HEADERS
     INSTALLS += target headers

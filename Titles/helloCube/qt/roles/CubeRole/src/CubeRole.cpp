@@ -63,11 +63,26 @@ MLE_ROLE_SOURCE(CubeRole, MleRole)
 CubeRole::CubeRole(MleActor *actor)
   : MleRole(actor)
 {
-    // Default configuration is processed in the init() method.
-    m_cube = NULL;
-    m_material = NULL;
+    // Note: this can not be done during role initialization since the Mle3dSet is
+    // expecting the m_root to already exist when it is attached to the set (before
+    // init() is called.).
+    m_cube = new SoCube();
+    // Set default cube size.
+    cubeGeometry(1.0, 1.0, 1.0);
+
+    m_translation = new SoTranslation();
+    // Default location is (0, 0, 0).
+
+    m_material = new SoMaterial();
+    // Set default cube color - red.
+    cubeColor(1.0, 0.0, 0.0);
+
     m_root = new SoSeparator();
     m_root->ref();
+
+    //m_root->addChild(m_translation);
+    m_root->addChild(m_material);
+    m_root->addChild(m_cube);
 }
 
 CubeRole::~CubeRole()
@@ -80,26 +95,12 @@ CubeRole::~CubeRole()
 void
 CubeRole::init()
 {
-    // Determine if cube role has already been initialized.
-    if (m_cube != NULL) return;
+    // Note: init() is called after the bound actor has been initialized.
+    // This occurs after the role has been attached to the set.
 
-	m_cube = new SoCube();
-    // Set default cube size.
-    cubeGeometry(1.0, 1.0, 1.0);
-
-    m_translation = new SoTranslation();
-    // Default location is (0, 0, 0).
-
-	m_material = new SoMaterial();
-    // Set default cube color - red.
-    cubeColor(1.0, 0.0, 0.0);
-
-    m_root->addChild(m_translation);
-	m_root->addChild(m_material);
-	m_root->addChild(m_cube);
-
-    // Add role to its set.
-    m_set->attach(NULL,this);
+    // Add role to its set. This is required by unittest, but is not normally
+    // done with a Digital Workprint based titled.
+    //m_set->attach(NULL,this);
 }
 
 void

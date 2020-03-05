@@ -57,6 +57,22 @@ using namespace std;
 
 MLE_ACTOR_SOURCE(CubeActor, MleActor)
 
+#ifdef MLE_DIGITAL_WORKPRINT
+void
+CubeActor::initClass(void)
+{
+    mleRegisterActorClass(CubeActor, MleActor);
+
+    mleRegisterActorMember(CubeActor, position, MlVector3);
+    mleRegisterActorMember(CubeActor, geometry, FloatArray);
+    mleRegisterActorMember(CubeActor, color, FloatArray);
+
+    // Mark all the properties that belongs to the "transform" property
+    // data set.
+    mleRegisterActorMemberDataset(CubeActor, position, MLE_PROP_DATASET_TRANSFORM);
+}
+#endif /* MLE_DIGITAL_WORKPRINT */
+
 CubeActor::CubeActor(void)
  : MleActor()
 {
@@ -95,6 +111,22 @@ CubeActor::init()
     role->cubeGeometry(geometry[0], geometry[1], geometry[2]);
     role->cubeColor(color[0], color[1], color[2]);
 }
+
+#ifdef MLE_DIGITAL_WORKPRINT
+void
+CubeActor::resolveEdit(const char *property)
+{
+    //CubeRole *role = CubeRole::cast(getRole());
+    CubeRole *role = (CubeRole *)getRole();
+
+    if (! property || strcmp(property, "position") == 0)
+        role->cubePosition(position);
+    else if(strcmp(property, "geometry") == 0)
+        role->cubeGeometry(geometry[0], geometry[1], geometry[2]);
+    else if(strcmp(property, "color") == 0)
+        role->cubeColor(color[0], color[1], color[2]);
+}
+#endif /* MLE_DIGITAL_WORKPRINT */
 
 void
 CubeActor::setPosition(MlVector3 &pos)

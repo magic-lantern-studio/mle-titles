@@ -88,6 +88,13 @@ class CUBESETSHARED_EXPORT CubeSet : public MleSet
     // Attach the child role to the set.
     void attach(MleRole *parent, MleRole *child);
 
+#ifdef MLE_DIGITAL_WORKPRINT
+    // Tools can change property values directly on the set. This
+    // function can be used to propagate the changes and
+    // to make its state consistent.
+    virtual void resolveEdit(const char *property);
+#endif  /* MLE_DIGITAL_WORKPRINT */
+
     // Set the current position.
     virtual void setPosition(MlVector2 &pos);
 
