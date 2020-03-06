@@ -34,7 +34,7 @@ HEADERS += \
 
 # Default rules for deployment.
 unix {
-    target.path = /opt/MagicLantern/lib/mle/qt
+    target.path = /opt/MagicLantern/lib/mle/qt/inventor
     headers.path = /opt/MagicLantern/include/mle/qt
     headers.files = $$HEADERS
     INSTALLS += target headers
