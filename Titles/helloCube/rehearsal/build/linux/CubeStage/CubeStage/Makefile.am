@@ -14,8 +14,8 @@ lib_LTLIBRARIES = CubeStage.la
 # Sources for CubeStage
 CubeStage_la_SOURCES = $(top_srcdir)/../../../src/stages/CubeStage.cpp
 
-# Linker options libTestProgram
-CubeStage_la_LDFLAGS = -module
+# Linker options CubeStage
+CubeStage_la_LDFLAGS = -module -version-info 1:0:0
 
 # Compiler options. Here we are adding the include directory
 # to be searched for headers included in the source code.

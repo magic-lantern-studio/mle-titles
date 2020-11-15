@@ -14,8 +14,8 @@ lib_LTLIBRARIES = SpinnerActor.la
 # Sources for SpinnerActor
 SpinnerActor_la_SOURCES = ../../../src/spinnera.cxx
 
-# Linker options libTestProgram
-SpinnerActor_la_LDFLAGS = -module
+# Linker options SpinnerActor
+SpinnerActor_la_LDFLAGS = -module -version-info 1:0:0
 
 # Compiler options. Here we are adding the include directory
 # to be searched for headers included in the source code.

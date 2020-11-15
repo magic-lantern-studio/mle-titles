@@ -14,8 +14,8 @@ lib_LTLIBRARIES = CubeSet.la
 # Sources for CubeSet
 CubeSet_la_SOURCES = $(top_srcdir)/../../../src/sets/CubeSet.cpp
 
-# Linker options libTestProgram
-CubeSet_la_LDFLAGS = -module
+# Linker options CubeSet
+CubeSet_la_LDFLAGS = -module -version-info 1:0:0
 
 # Compiler options. Here we are adding the include directory
 # to be searched for headers included in the source code.

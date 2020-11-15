@@ -14,8 +14,8 @@ lib_LTLIBRARIES = CubeActor.la
 # Sources for CubeActor
 CubeActor_la_SOURCES = $(top_srcdir)/../../../src/actors/CubeActor.cpp
 
-# Linker options libTestProgram
-CubeActor_la_LDFLAGS = -module
+# Linker options CubeActor
+CubeActor_la_LDFLAGS = -module -version-info 1:0:0
 
 # Compiler options. Here we are adding the include directory
 # to be searched for headers included in the source code.
