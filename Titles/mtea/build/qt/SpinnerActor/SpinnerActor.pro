@@ -31,6 +31,11 @@ HEADERS += \
     $$PWD/../../../src/SpinnerActor.h \
     $$PWD/../../../src/spinnera.h
 
+macx {
+    # Set the LFLAGS so that dynamic libraries behave like Linux DSOs.
+    QMAKE_LFLAGS += -undefined suppress -flat_namespace
+}
+
 # Default rules for deployment.
 unix {
     target.path = /opt/MagicLantern/lib/mle/qt/rehearsal
