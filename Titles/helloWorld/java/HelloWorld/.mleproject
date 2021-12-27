@@ -17,8 +17,8 @@
                 <gengroup group_id_file="GroupID.java" actor_id_file="ActorID.java"/>
                 <genmedia bom_file="MediaBom.txt"/>
                 <genscene scene_id_file="SceneID.java"/>
-                <genppscript toc_name="DppTOC" script_file="playprint.tcl"/>
-                <gendpp script_path="src/gen/playprint.tcl" source_directory="src/gen"/>
+                <genppscript toc_name="DppTOC" script_file="playprint.py"/>
+                <gendpp script_path="src/gen/playprint.py" source_directory="src/gen"/>
             </tools>
         </master_target>
     </title_data>
