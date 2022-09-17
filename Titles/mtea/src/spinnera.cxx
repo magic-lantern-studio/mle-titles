@@ -14,7 +14,7 @@
 //
 // The MIT License (MIT)
 //
-// Copyright (c) 2003-2019 Wizzer Works
+// Copyright (c) 2003-2022 Wizzer Works
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -57,6 +57,22 @@
 // Include title header files.
 #include "spinnera.h"
 
+#if defined(__linux__)
+#if defined(HAVE_LOG4CXX)
+#include "log4cxx/logger.h"
+#include "log4cxx/basicconfigurator.h"
+#include "log4cxx/helpers/exception.h"
+#include "log4cxx/consoleappender.h"
+#include "log4cxx/patternlayout.h"
+
+using namespace log4cxx;
+using namespace log4cxx::helpers;
+
+LoggerPtr g_spinnerLogger(Logger::getLogger("SpinnerActor"));
+static MlBoolean g_spinnerLoggerInitialized = FALSE;
+#endif /* HAVE_LOG4CXX */
+#endif
+
 using namespace std;
 
 
@@ -64,7 +80,22 @@ MLE_ACTOR_SOURCE(SpinnerActor,MleActor);
 
 
 SpinnerActor::SpinnerActor()
-{ 
+{
+#if defined(__linux__)
+#if defined(HAVE_LOG4CXX)
+	if (!g_spinnerLoggerInitialized) {
+		// Create an appender for the logging output pattern.
+		PatternLayoutPtr patternLayout = new PatternLayout("[%-5p] %d %c - %m%n");
+		ConsoleAppenderPtr appender = new ConsoleAppender(patternLayout);
+
+		/// Set up a simple configuration that logs to the console.
+	    BasicConfigurator::configure(appender);
+	    //LoggerPtr logger(Logger::getLogger("main"));
+	    LOG4CXX_DEBUG(g_spinnerLogger, "log4cxx Initialized");
+	    g_spinnerLoggerInitialized = TRUE;
+	}
+#endif /* HAVE_LOG4CXX */
+#endif
 }
 
 #ifdef MLE_REHEARSAL
@@ -129,6 +160,10 @@ SpinnerActor::~SpinnerActor()
 
 void  SpinnerActor::init()
 {
+#if defined(HAVE_LOG4CXX)
+#else
+#endif
+
     colorMap.push(this);
     texture.push(this);
     model.push(this);
@@ -162,7 +197,11 @@ void SpinnerActor::behave(SpinnerActor* spinner)
 void
 SpinnerActor:: getProperty(MleObject *object, const char *name, unsigned char **value)
 {
+#if defined(HAVE_LOG4CXX)
+	LOG4CXX_DEBUG(g_spinnerLogger, "Getting SpinnerActor property " << name << ".");
+#else
     cout << "Getting SpinnerActor property " << name << "." << endl;
+#endif
     if (strcmp("position",name) == 0)
     {
     	Mle3dTranslationProperty position = ((SpinnerActor *)object)->getPositionProperty();
@@ -197,7 +236,11 @@ SpinnerActor:: getProperty(MleObject *object, const char *name, unsigned char **
 void
 SpinnerActor::setProperty(MleObject *object, const char *name, unsigned char *value)
 {
+#if defined(HAVE_LOG4CXX)
+	LOG4CXX_DEBUG(g_spinnerLogger, "Setting SpinnerActor property " << name << ".");
+#else
     cout << "Setting SpinnerActor property " << name << "." << endl;
+#endif
     if (strcmp("position",name) == 0)
     {
     	((SpinnerActor *)object)->setPositionProperty(*((Mle3dTranslationProperty *)value));

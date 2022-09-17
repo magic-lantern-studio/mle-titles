@@ -22,3 +22,13 @@ SpinnerActor_la_LDFLAGS = -module -version-info 1:0:0
 SpinnerActor_la_CPPFLAGS = -DMLE_DIGITAL_WORKPRINT -DMLE_REHEARSAL -DMLE_NOT_DLL \
     -I$(top_srcdir)/include -I$(top_srcdir)/../../../src \
 	-I$(MLE_ROOT)/include
+
+if HAVE_LOG4CXX
+#SpinnerActor_la_SOURCES += \
+#    audio_random_portaudio.h \
+#    audio_random_portaudio.cpp
+	
+SpinnerActor_la_CPPFLAGS += $(LOG4CXX_CFLAGS)
+
+#SpinnerActor_la_LDFLAGS += $(LOG4CXX_LIBS)
+endif

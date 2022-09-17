@@ -65,6 +65,14 @@
 // Include Actor's header files.
 #include "SpinnerActor.h"
 
+#if defined(__linux__)
+#if defined(HAVE_LOG4CXX)
+#include "log4cxx/logger.h"
+
+using namespace log4cxx;
+extern LoggerPtr g_spinnerLogger;;
+#endif /* HAVE_LOG4CXX */
+#endif
 
 class SPINNERACTOR_API SpinnerActor : public MleActor
 {
