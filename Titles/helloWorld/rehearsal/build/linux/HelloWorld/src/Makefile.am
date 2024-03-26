@@ -13,10 +13,11 @@ helloWorld_LDADD = \
     $(MLE_ROOT)/lib/mle/rehearsal/Mle3dTextureMapMediaRef.so \
     $(MLE_ROOT)/lib/mle/rehearsal/Mle3dModelMediaRef.so \
     $(MLE_ROOT)/lib/mle/rehearsal/libmlert.so \
+    $(MLE_ROOT)/lib/mle/rehearsal/libmlloaders.so \
     $(MLE_ROOT)/lib/libDWP.so \
     $(MLE_ROOT)/lib/libmlutil.so \
     $(MLE_ROOT)/lib/libmlmath.so \
-    -lCoin -lSoXt -lX11 -lXm -lXt -ldl
+    -llog4cxx -lCoin -lSoXt -lX11 -lXm -lXt -ldl
 
 helloWorld_LDFLAGS = -Wl,--no-as-needed
 
