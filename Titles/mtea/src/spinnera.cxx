@@ -85,8 +85,8 @@ SpinnerActor::SpinnerActor()
 #if defined(HAVE_LOG4CXX)
 	if (!g_spinnerLoggerInitialized) {
 		// Create an appender for the logging output pattern.
-		PatternLayoutPtr patternLayout = new PatternLayout("[%-5p] %d %c - %m%n");
-		ConsoleAppenderPtr appender = new ConsoleAppender(patternLayout);
+		PatternLayoutPtr patternLayout = (PatternLayoutPtr) new PatternLayout("[%-5p] %d %c - %m%n");
+		ConsoleAppenderPtr appender = (ConsoleAppenderPtr) new ConsoleAppender(patternLayout);
 
 		/// Set up a simple configuration that logs to the console.
 	    BasicConfigurator::configure(appender);
