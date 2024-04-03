@@ -17,7 +17,7 @@ null_CPPFLAGS = \
     -I$(MLE_ROOT)/include \
     -I/usr/local/include
 
-null_LDFLAGS = \
+null_LDADD = \
     $(MLE_ROOT)/lib/mle/runtime/Mle2dSet.so \
     -L$(MLE_ROOT)/lib/mle/runtime -lmlert -lmlloaders \
     -L$(MLE_ROOT)/lib -lplayprint -lmlmath -lmlutil \
