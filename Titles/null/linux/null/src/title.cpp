@@ -57,7 +57,7 @@
 #include <mle/MleScheduler.h>
 #include <mle/MleLoad.h>
 #include <mle/mlPlatformData.h>
-//#include <mle/ivstage.h>
+#include <mle/ivstage.h>
 
 
 // Include Digital Playprint header files.
@@ -180,6 +180,16 @@ MlBoolean initEnv(int argc, void **argv)
     else
         g_theTitle->m_titleData = NULL;
 
+    // Create and initialize stage.
+    //new MleIvStage();
+    //((MleIvStage *)MleStage::g_theStage)->init();
+
+	// Initialize the platform data.
+	//g_theTitle->m_platformData = ((MleIvStage *)MleStage::g_theStage)->initPlatform();
+
+    // Load the first group.
+    //(void) mlLoadBootScene(g_workprint);
+
     return ML_TRUE;
 }
 
@@ -258,8 +268,9 @@ MlBoolean cleanupEnv(void)
     delete g_theTitle->m_theScheduler;
     delete g_theTitle->m_theEventMgr;
     mlFree(g_theTitle->m_platformData);
-    if (g_theTitle->m_titleData)
-        delete g_theTitle->m_titleData;
+    //if (g_theTitle->m_titleData)
+    	// m_titleData is a callback function; can't delete it
+        //delete g_theTitle->m_titleData;
     mlFree(g_theTitle);
 
     return ML_TRUE;

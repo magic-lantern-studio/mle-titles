@@ -18,7 +18,14 @@ null_CPPFLAGS = \
     -I/usr/local/include
 
 null_LDADD = \
+    $(MLE_ROOT)/lib/mle/runtime/MleIvStage.so \
     $(MLE_ROOT)/lib/mle/runtime/Mle2dSet.so \
     -L$(MLE_ROOT)/lib/mle/runtime -lmlert -lmlloaders \
     -L$(MLE_ROOT)/lib -lplayprint -lmlmath -lmlutil \
     -L/usr/local/lib -lCoin -lSoXt -lXt
+    
+#null_LDADD = \
+#    $(MLE_ROOT)/lib/mle/runtime/Mle2dSet.so \
+#    -L$(MLE_ROOT)/lib/mle/runtime -l:MleIvStage.a -lmlert -lmlloaders \
+#    -L$(MLE_ROOT)/lib -lplayprint -lmlmath -lmlutil \
+#    -L/usr/local/lib -lCoin -lSoXt -lXt

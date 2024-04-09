@@ -10,6 +10,7 @@ helloCube_LDADD = \
     $(MLE_ROOT)/lib/mle/inventor/Mle3dTextureMapMediaRef.so \
     $(MLE_ROOT)/lib/mle/inventor/Mle3dModelMediaRef.so \
     $(MLE_ROOT)/lib/mle/inventor/libmlert.so \
+    $(MLE_ROOT)/lib/mle/inventor/libmlloaders.so \
     $(MLE_ROOT)/lib/libDWP.so \
     $(MLE_ROOT)/lib/libmlutil.so \
     $(MLE_ROOT)/lib/libmlmath.so \
@@ -22,3 +23,9 @@ helloCube_CPPFLAGS = \
 	-DMLE_DIGITAL_WORKPRINT \
 	-I$(top_srcdir)/../../../include \
 	-I$(MLE_ROOT)/include
+
+if HAVE_LOG4CXX
+helloCube_CPPFLAGS += $(LOG4CXX_CFLAGS)
+helloCube_LDFLAGS += -Wl,-rpath=/usr/local/lib
+helloCube_LDADD += $(LOG4CXX_LIBS)
+endif

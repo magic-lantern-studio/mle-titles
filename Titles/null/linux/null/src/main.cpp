@@ -89,7 +89,7 @@ using namespace std;
 #include <mle/MleScheduler.h>
 
 // Include title header files.
-//#include "mle/ivstage.h"
+#include "mle/ivstage.h"
 
 // Declare external references.
 extern MleEventEntry g_eventTable[];
@@ -198,7 +198,7 @@ int main(int argc, char *argv[])
         exit(1);
 
     // Create the stage and initialize it.
-    //MleIvStage *theStage = new MleIvStage();
+    MleIvStage *theStage = new MleIvStage();
     //theStage->init();
     //theStage->setName("null Title");
     //theStage->show();
