@@ -5,13 +5,14 @@ TARGET = null
 TEMPLATE = app
 
 unix:!macx: LIBS += \
-    -L$$PWD/../build/build-null-Desktop_Qt_5_8_0_GCC_64bit-Debug/src -lqtstage -lqtset \
-    -L/opt/MagicLantern/lib/mle/runtime -lmlert \
+    -L$$PWD/../build/build-null-Desktop-Debug/src \
+    -L/opt/MagicLantern/lib/mle/qt -lqtstage -lqtset \
+    -L/opt/MagicLantern/lib/mle/runtime -lmlert -lmlloaders \
     -L/opt/MagicLantern/lib -lplayprint -lmlutil -lmlmath
 
 #INCLUDEPATH += $$PWD/../build/build-mleqtstage-Desktop_Qt_5_8_0_GCC_64bit-Debug
 INCLUDEPATH += $$PWD/../include /opt/MagicLantern/include /usr/local/include
-DEPENDPATH += $$PWD/../build/build-null-Desktop_Qt_5_8_0_GCC_64bit-Debug/src
+DEPENDPATH += $$PWD/../../build-null-Desktop-Debug/src
 
 DEFINES += MLE_DIGITAL_PLAYPRINT MLE_NOT_DLL
 
@@ -35,7 +36,7 @@ win32 {
     copyfiles.commands += cp -r ../$${TARGET}/gen/null.dpp $${DESTDIR}/
 }
 unix {
-     copyfiles.commands += cp ../../null/gen/null.dpp .
+     copyfiles.commands += cp $$PWD/gen/null.dpp .
 }
 
 QMAKE_EXTRA_TARGETS += copyfiles

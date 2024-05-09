@@ -1,5 +1,5 @@
 #DWP 1.0 ascii
-( Include $MLE_WORKPRINTS/Parts/sets/qt/workprints/MleQt2dSet.wpf )
+( Include $MLE_WORKPRINTS/workprints/MleQt2dSet.wpf )
 ( Stage MyStage Mle2dStage
   ( Set 2dSet Mle2dSet
     ( Property position MlVector2 0.0 0.0 )

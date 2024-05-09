@@ -1,6 +1,6 @@
 This directory contains an example title for the Qt target. The title is "null"
-for the Magic Lantern SDK targeting Qt applications. Essentially the null title does
-nothing but may be used as the foundation for building other Qt Magic Lantern titles.
+for the Magic Lantern SDK targeting Qt applications. Essentially the null title
+does nothing but may be used as the foundation for building other Qt Magic Lantern titles.
 
 This file describes how to master the null title.
 
@@ -42,13 +42,13 @@ To master the null title for the Qt platform, use the following steps.
 
 	This will generate the mltables.cxx file in the 'gen' directory.
 
-6. Generate the DPP layout TCL script:
-	genppscript -d gen linux:qt ../workprints/null.dwp null.dpp null.tcl mlchunk 
+6. Generate the DPP layout Python script:
+	genppscript -d gen linux:qt ../workprints/null.dwp null.dpp null.py mlchunk 
 
-	This will generate the null.tcl script in the 'gen' directory.
+	This will generate the null.py script in the 'gen' directory.
 
 7. Generate the DPP:
-	gendpp -l -s gen -d gen linux:qt ../workprints/null.dwp gen/null.tcl
+	gendpp -l -s gen -d gen linux:qt ../workprints/null.dwp gen/null.py
 
 	This will generate the mlchunk.h and mlchunk.cxx files in the 'gen' directory.
 	It will also generate the null.dpp Digital Playprint file in the 'gen' directory.
