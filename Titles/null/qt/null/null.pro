@@ -14,6 +14,17 @@ unix:!macx: LIBS += \
 INCLUDEPATH += $$PWD/../include /opt/MagicLantern/include /usr/local/include
 DEPENDPATH += $$PWD/../../build-null-Desktop-Debug/src
 
+unix {
+    MLE_ROOT=/opt/MagicLantern
+}
+# Suppress the default RPATH
+unix: QMAKE_LFLAGS_RPATH=
+unix: QMAKE_LFLAGS += \
+    "-Wl,-rpath,$${MLE_ROOT}/lib/mle/qt \
+     -Wl,-rpath,$${MLE_ROOT}/lib/mle/runtime \
+     -Wl,-rpath,$${MLE_ROOT}/lib \
+     -Wl,-rpath,/usr/lib/qt5/bin"
+
 DEFINES += MLE_DIGITAL_PLAYPRINT MLE_NOT_DLL
 
 SOURCES += \
@@ -41,3 +52,8 @@ unix {
 
 QMAKE_EXTRA_TARGETS += copyfiles
 POST_TARGETDEPS += copyfiles
+
+# Default rules for deployment
+unix {
+    target.path = /opt/MagicLantern/bin
+}
