@@ -1,4 +1,5 @@
-QT += gui
+QT += core gui
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = CubeStage
 TEMPLATE = lib
@@ -21,7 +22,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 INCLUDEPATH += $$PWD/../../../include /opt/MagicLantern/include /usr/local/include
 
-DEFINES += MLE_DIGITAL_WORKPRINT MLE_NOT_DLL
+DEFINES += MLE_NOT_DLL MLE_DIGITAL_WORKPRINT MLE_QT
 
 SOURCES += \
     CubeStage.cpp
@@ -37,4 +38,4 @@ unix {
     headers.files = $$HEADERS
     INSTALLS += target headers
 }
-!isEmpty(target.path): INSTALLS += target
+#!isEmpty(target.path): INSTALLS += target

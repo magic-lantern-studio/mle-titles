@@ -7,30 +7,42 @@ TEMPLATE = app
 CONFIG(debug, debug|release) {
 # debug build
 unix:!macx: LIBS += \
-    -L$$PWD/../build/build-CubeStage-Desktop_Qt_4_8_7_GCC_64bit-Debug/src -lCubeStage \
-    -L$$PWD/../../../sets/CubeSet/build/build-CubeSet-Desktop_Qt_4_8_7_GCC_64bit-Debug/src -lCubeSet \
-    -L$$PWD/../../../roles/CubeRole/build/build-CubeRole-Desktop_Qt_4_8_7_GCC_64bit-Debug/src -lCubeRole \
-    -L/opt/MagicLantern/lib/mle/qt/inventor -lmlert \
+    -L$$PWD/../stages/build-CubeStage-Desktop-Debug/src -lCubeStage \
+    -L$$PWD/../sets/build-CubeSet-Desktop-Debug/src -lCubeSet \
+    -L$$PWD/../roles/build-CubeRole-Desktop-Debug/src -lCubeRole \
+    -L$$PWD/../actors/build-CubeActor-Desktop-Debug/src -lCubeActor \
+    -L/opt/MagicLantern/lib/mle/inventor -lmlert -lmlloaders \
     -L/opt/MagicLantern/lib -lDWP -lmlutil -lmlmath \
     -lCoin -lSoQt
 
 INCLUDEPATH += $$PWD/../include $$PWD/../../../include /opt/MagicLantern/include
-DEPENDPATH += $$PWD/../build/build-CubeStage-Desktop_Qt_4_8_7_GCC_64bit-Debug/src
+DEPENDPATH += $$PWD/../build/build-CubeStage-Desktop-Debug/src
 } else {
 # release build
 unix:!macx: LIBS += \
-    -L$$PWD/../build/build-CubeStage-Desktop_Qt_4_8_7_GCC_64bit-Release/src -lCubeStage \
-    -L$$PWD/../../../sets/CubeSet/build/build-CubeSet-Desktop_Qt_4_8_7_GCC_64bit-Release/src -lCubeSet \
-    -L$$PWD/../../../roles/CubeRole/build/build-CubeRole-Desktop_Qt_4_8_7_GCC_64bit-Release/src -lCubeRole \
-    -L/opt/MagicLantern/lib/mle/qt/inventor -lmlert \
+    -L$$PWD/../stages/build-CubeStage-Desktop-Release/src -lCubeStage \
+    -L$$PWD/../sets/build-CubeSet-Desktop-Release/src -lCubeSet \
+    -L$$PWD/../roles/build-CubeRole-Desktop-Release/src -lCubeRole \
+    -L$$PWD/../actors/build-CubeActor-Desktop-Release/src -lCubeActor \
+    -L/opt/MagicLantern/lib/mle/inventor -lmlert -lmloaders \
     -L/opt/MagicLantern/lib -lDWP -lmlutil -lmlmath \
     -lCoin -lSoQt
 
 INCLUDEPATH += $$PWD/../include $$PWD/../../../include /opt/MagicLantern/include
-DEPENDPATH += $$PWD/../build/build-CubeStage-Desktop_Qt_4_8_7_GCC_64bit-Release/src
+DEPENDPATH += $$PWD/../build/build-CubeStage-Desktop-Release/src
 }
 
-DEFINES += MLE_DIGITAL_WORKPRINT MLE_NOT_DLL
+unix {
+    MLE_ROOT=/opt/MagicLantern
+}
+# Suppress the default RPATH
+unix: QMAKE_LFLAGS_RPATH=
+unix: QMAKE_LFLAGS += \
+    "-Wl,-rpath,$${MLE_ROOT}/lib/mle/qt \
+     -Wl,-rpath,$${MLE_ROOT}/lib/mle/qt/inventor \
+     -Wl,-rpath,$${MLE_ROOT}/lib \
+     -Wl,-rpath,/usr/lib/qt5/bin"
+DEFINES += MLE_NOT_DLL MLE_DIGITAL_WORKPRINT MLE_QT
 
 SOURCES += \
     callback.cpp \

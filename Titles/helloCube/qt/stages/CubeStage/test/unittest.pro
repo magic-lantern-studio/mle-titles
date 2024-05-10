@@ -7,30 +7,26 @@ TEMPLATE = app
 CONFIG(debug, debug|release) {
 # debug build
 unix:!macx: LIBS += \
-    -L$$PWD/../build/build-CubeStage-Desktop_Qt_4_8_7_GCC_64bit-Debug/src -lCubeStage \
-    -L$$PWD/../../../sets/CubeSet/build/build-CubeSet-Desktop_Qt_4_8_7_GCC_64bit-Debug/src -lCubeSet \
-    -L$$PWD/../../../roles/CubeRole/build/build-CubeRole-Desktop_Qt_4_8_7_GCC_64bit-Debug/src -lCubeRole \
-    -L/opt/MagicLantern/lib/mle/qt/inventor -lmlert \
+    -L$$PWD/../../build-CubeStage-Desktop-Debug/src -lCubeStage \
+    -L/opt/MagicLantern/lib/mle/inventor -lmlert -lmlloaders \
     -L/opt/MagicLantern/lib -lDWP -lmlutil -lmlmath \
     -lCoin -lSoQt
 
 INCLUDEPATH += $$PWD/../include $$PWD/../../../include /opt/MagicLantern/include
-DEPENDPATH += $$PWD/../build/build-CubeStage-Desktop_Qt_4_8_7_GCC_64bit-Debug/src
+DEPENDPATH += $$PWD/../build/build-CubeStage-Desktop-Debug/src
 } else {
 # release build
 unix:!macx: LIBS += \
-    -L$$PWD/../build/build-CubeStage-Desktop_Qt_4_8_7_GCC_64bit-Release/src -lCubeStage \
-    -L$$PWD/../../../sets/CubeSet/build/build-CubeSet-Desktop_Qt_4_8_7_GCC_64bit-Release/src -lCubeSet \
-    -L$$PWD/../../../roles/CubeRole/build/build-CubeRole-Desktop_Qt_4_8_7_GCC_64bit-Release/src -lCubeRole \
-    -L/opt/MagicLantern/lib/mle/qt/inventor -lmlert \
+    -L$$PWD/../../build-CubeStage-Desktop-Release/src -lCubeStage \
+    -L/opt/MagicLantern/lib/mle/inventor -lmlert -lmlloaders \
     -L/opt/MagicLantern/lib -lDWP -lmlutil -lmlmath \
     -lCoin -lSoQt
 
 INCLUDEPATH += $$PWD/../include $$PWD/../../../include /opt/MagicLantern/include
-DEPENDPATH += $$PWD/../build/build-CubeStage-Desktop_Qt_4_8_7_GCC_64bit-Release/src
+DEPENDPATH += $$PWD/../build/build-CubeStage-Desktop-Release/src
 }
 
-DEFINES += MLE_DIGITAL_WORKPRINT MLE_NOT_DLL
+DEFINES += MLE_NOT_DLL MLE_DIGITAL_WORKPRINT MLE_QT
 
 SOURCES += \
     main.cpp
