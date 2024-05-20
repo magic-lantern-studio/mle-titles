@@ -31,6 +31,9 @@ HEADERS += \
     $$PWD/../../../src/SpinnerActor.h \
     $$PWD/../../../src/spinnera.h
 
+WORKPRINTS = \
+    $$PWD/../../../src/SpinnerActor.wpd
+
 macx {
     # Set the LFLAGS so that dynamic libraries behave like Linux DSOs.
     QMAKE_LFLAGS += -undefined suppress -flat_namespace
@@ -39,5 +42,7 @@ macx {
 # Default rules for deployment.
 unix {
     target.path = /opt/MagicLantern/lib/mle/qt/rehearsal
+    workprints.path = /opt/MagicLantern/include/workprints/Titles/mtea/src
+    workprints.files = $$WORKPRINTS
 }
-!isEmpty(target.path): INSTALLS += target
+!isEmpty(target.path): INSTALLS += target workprints
