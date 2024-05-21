@@ -6,15 +6,12 @@
  *
  * This file implements the events and their callbacks which
  * are specific to this title.
- *
- * @author Mark S. Millard
- * @date June 18, 2018
  */
 
 // COPYRIGHT_BEGIN
 // The MIT License (MIT)
 //
-// Copyright (c) 2018-2020 Wizzer Works
+// Copyright (c) 2018-2024 Wizzer Works
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -53,8 +50,8 @@
 #include <mle/MleScheduler.h>
 #include <mle/MleDirector.h>
 
-// Include Magic Lantern Runtime header files for At target.
-#include <mle/qt/qtstage.h>
+// Include Magic Lantern Runtime header files for Qt target.
+#include "mle/qt/CubeStage.h"
 
 // Include title header files.
 #include "callback.h"
@@ -79,7 +76,7 @@ int g_numEvents = sizeof(g_eventTable) / sizeof(MleEventEntry);
 // 
 // Process close event before shutting down title.
 //
-int msgClose(MleEvent event,void *callData,void *clientData)
+int msgClose(MleEvent /*event*/,void * /*callData*/,void * /*clientData*/)
 {
     qDebug() << "HelloWorld Title: processing QT_CLOSE_EVENT message.";
     return 0;

@@ -5,16 +5,13 @@
  * @ingroup HelloCubeTitle
  *
  * This file implements the main entry points into the HelloCube title.
- *
- * @author Mark S. Millard
- * @date June 18, 2018
  */
 
 // COPYRIGHT_BEGIN
 //
 // The MIT License (MIT)
 //
-// Copyright (c) 2018-2020 Wizzer Works
+// Copyright (c) 2018-2024 Wizzer Works
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
