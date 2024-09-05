@@ -1,0 +1,76 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpinnerActor", "SpinnerActor.vcxproj", "{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mtea", "mtea.vcxproj", "{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Float Debug|Win32 = Float Debug|Win32
+		Float Debug|x64 = Float Debug|x64
+		Float Release|Win32 = Float Release|Win32
+		Float Release|x64 = Float Release|x64
+		GDK Win32 Float Debug|Win32 = GDK Win32 Float Debug|Win32
+		GDK Win32 Float Debug|x64 = GDK Win32 Float Debug|x64
+		GDK Win32 Float Release|Win32 = GDK Win32 Float Release|Win32
+		GDK Win32 Float Release|x64 = GDK Win32 Float Release|x64
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.Debug|Win32.Build.0 = Debug|Win32
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.Debug|x64.ActiveCfg = Debug|x64
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.Debug|x64.Build.0 = Debug|x64
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.Float Debug|Win32.ActiveCfg = Debug|Win32
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.Float Debug|Win32.Build.0 = Debug|Win32
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.Float Debug|x64.ActiveCfg = Debug|x64
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.Float Debug|x64.Build.0 = Debug|x64
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.Float Release|Win32.ActiveCfg = Release|Win32
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.Float Release|Win32.Build.0 = Release|Win32
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.Float Release|x64.ActiveCfg = Release|x64
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.Float Release|x64.Build.0 = Release|x64
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.GDK Win32 Float Debug|Win32.ActiveCfg = Debug|Win32
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.GDK Win32 Float Debug|Win32.Build.0 = Debug|Win32
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.GDK Win32 Float Debug|x64.ActiveCfg = Debug|x64
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.GDK Win32 Float Debug|x64.Build.0 = Debug|x64
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.GDK Win32 Float Release|Win32.ActiveCfg = Release|Win32
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.GDK Win32 Float Release|Win32.Build.0 = Release|Win32
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.GDK Win32 Float Release|x64.ActiveCfg = Release|x64
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.GDK Win32 Float Release|x64.Build.0 = Release|x64
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.Release|Win32.ActiveCfg = Release|Win32
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.Release|Win32.Build.0 = Release|Win32
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.Release|x64.ActiveCfg = Release|x64
+		{6C9E025B-A0FD-4C97-A0FC-29B58B4AF2AC}.Release|x64.Build.0 = Release|x64
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.Debug|Win32.ActiveCfg = GDK Win32 Float Debug|Win32
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.Debug|Win32.Build.0 = GDK Win32 Float Debug|Win32
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.Debug|x64.ActiveCfg = GDK Win32 Float Debug|x64
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.Debug|x64.Build.0 = GDK Win32 Float Debug|x64
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.Float Debug|Win32.ActiveCfg = Float Debug|Win32
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.Float Debug|Win32.Build.0 = Float Debug|Win32
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.Float Debug|x64.ActiveCfg = Float Debug|x64
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.Float Debug|x64.Build.0 = Float Debug|x64
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.Float Release|Win32.ActiveCfg = Float Release|Win32
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.Float Release|Win32.Build.0 = Float Release|Win32
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.Float Release|x64.ActiveCfg = Float Release|x64
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.Float Release|x64.Build.0 = Float Release|x64
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.GDK Win32 Float Debug|Win32.ActiveCfg = GDK Win32 Float Debug|Win32
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.GDK Win32 Float Debug|Win32.Build.0 = GDK Win32 Float Debug|Win32
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.GDK Win32 Float Debug|x64.ActiveCfg = GDK Win32 Float Debug|x64
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.GDK Win32 Float Debug|x64.Build.0 = GDK Win32 Float Debug|x64
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.GDK Win32 Float Release|Win32.ActiveCfg = GDK Win32 Float Release|Win32
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.GDK Win32 Float Release|Win32.Build.0 = GDK Win32 Float Release|Win32
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.GDK Win32 Float Release|x64.ActiveCfg = GDK Win32 Float Release|x64
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.GDK Win32 Float Release|x64.Build.0 = GDK Win32 Float Release|x64
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.Release|Win32.ActiveCfg = GDK Win32 Float Release|Win32
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.Release|Win32.Build.0 = GDK Win32 Float Release|Win32
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.Release|x64.ActiveCfg = GDK Win32 Float Release|x64
+		{7BF7A99C-5847-4AA3-B69B-EF16F7756C7E}.Release|x64.Build.0 = GDK Win32 Float Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
