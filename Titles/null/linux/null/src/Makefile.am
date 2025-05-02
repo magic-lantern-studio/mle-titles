@@ -16,6 +16,7 @@ null_CPPFLAGS = \
     -DMLE_NOT_MATH_DLL \
     -DMLE_NOT_RUNTIME_DLL \
     -DMLE_NOT_IVSTAGE_DLL \
+    -DMLE_NOT_2DSET_DLL \
     -Igen \
     -I$(MLE_ROOT)/include \
     -I/usr/local/include
