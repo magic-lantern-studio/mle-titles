@@ -12,7 +12,10 @@ null_SOURCES = \
 
 null_CPPFLAGS = \
     -DMLE_DIGITAL_PLAYPRINT \
-    -DMLE_NOT_DLL \
+    -DMLE_NOT_UTIL_DLL \
+    -DMLE_NOT_MATH_DLL \
+    -DMLE_NOT_RUNTIME_DLL \
+    -DMLE_NOT_IVSTAGE_DLL \
     -Igen \
     -I$(MLE_ROOT)/include \
     -I/usr/local/include

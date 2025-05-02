@@ -5,16 +5,13 @@
  * @ingroup mtea
  *
  * This file declares the SpinnerActor class for the mtea title.
- *
- * @author Mark S. Millard
- * @date May 1, 2003
  */
 
 // COPYRIGHT_BEGIN
 //
 // The MIT License (MIT)
 //
-// Copyright (c) 2003-2019 Wizzer Works
+// Copyright (c) 2003-2025 Wizzer Works
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -74,7 +71,7 @@ extern LoggerPtr g_spinnerLogger;;
 #endif /* HAVE_LOG4CXX */
 #endif
 
-class SPINNERACTOR_API SpinnerActor : public MleActor
+class MLE_SPINNERACTOR_API SpinnerActor : public MleActor
 {
     MLE_ACTOR_HEADER(SpinnerActor);
 
