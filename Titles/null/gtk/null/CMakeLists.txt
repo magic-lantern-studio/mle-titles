@@ -40,13 +40,13 @@ add_executable(null "")
 target_sources(
   null
   PRIVATE
-    null/callback.cpp
-    null/main.cpp
-    null/title.cpp
+    callback.cpp
+    main.cpp
+    title.cpp
   )
 
 # Specify the include directories
 if(GTK2_FOUND)
   include_directories(${Coin_INCLUDE_DIRS} ${SoGtk_INCLUDE_DIRS} ${GTK2_INCLUDE_DIRS})
-  target_link_libraries(hellocone ${Coin_LIBRARIES} ${SoGtk_LIBRARIES} ${GTK2_LIBRARIES})
+  target_link_libraries(null ${Coin_LIBRARIES} ${SoGtk_LIBRARIES} ${GTK2_LIBRARIES})
 endif()
