@@ -3,9 +3,8 @@ include(SelectLibraryConfigurations)
 
 find_path(
 	MagicLantern_INCLUDE_DIR
-	NAMES mle.h
+	NAMES mle/mle.h
 	PATHS /opt/MagicLantern/include
-	PATH_SUFFIXES mle
 )
 find_library(
 	MagicLantern_LIBRARY_DEBUG
@@ -27,7 +26,7 @@ if(MagicLantern_INCLUDE_DIR AND EXISTS "${MagicLantern_INCLUDE_DIR}/mle/mlBasic.
 	unset(_MagicLantern_VERSION_DEFINE)
 endif()
 
-set(MagicLantern_DEFINITIONS -DCOIN_DLL)
+set(MagicLantern_DEFINITIONS -DMLE_NOT_RUNTIME_DLL)
 set(MagicLantern_INCLUDE_DIRS ${MagicLantern_INCLUDE_DIR})
 set(MagicLantern_LIBRARIES ${MagicLantern_LIBRARY})
 
@@ -54,4 +53,3 @@ endif()
 
 mark_as_advanced(MagicLantern_DEFINITIONS)
 mark_as_advanced(MagicLantern_INCLUDE_DIR)
-mark_as_advanced(MagicLantern_FOREIGN_FILES_INCLUDE_DIR)
