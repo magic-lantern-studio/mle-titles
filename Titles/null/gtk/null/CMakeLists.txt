@@ -24,6 +24,8 @@ include(FindCoin)
 find_package(Coin REQUIRED)
 include(FindSoGtk)
 find_package(SoGtk REQUIRED)
+include(FindMagicLantern)
+find_package(MagicLantern REQUIRED)
 
 find_package(PkgConfig REQUIRED)
 
@@ -46,7 +48,7 @@ target_sources(
   )
 
 # Specify the include directories
-if(GTK2_FOUND)
-  include_directories(${Coin_INCLUDE_DIRS} ${SoGtk_INCLUDE_DIRS} ${GTK2_INCLUDE_DIRS})
-  target_link_libraries(null ${Coin_LIBRARIES} ${SoGtk_LIBRARIES} ${GTK2_LIBRARIES})
+if(MagicLantern_FOUND)
+  include_directories(${MagicLantern_INCLUDE_DIRS} ${Coin_INCLUDE_DIRS} ${SoGtk_INCLUDE_DIRS} ${GTK2_INCLUDE_DIRS})
+  target_link_libraries(null ${MagicLantern_LIBRARIES} ${Coin_LIBRARIES} ${SoGtk_LIBRARIES} ${GTK2_LIBRARIES})
 endif()
