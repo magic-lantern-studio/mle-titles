@@ -11,7 +11,7 @@
 //
 // The MIT License (MIT)
 //
-// Copyright (c) 2022-2024 Wizzer Works
+// Copyright (c) 2022-2025 Wizzer Works
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -60,10 +60,7 @@ using namespace std;
 // Include system header files.
 //#include <getopt.h>
 
-// Include Qt header files.
-//#include <QApplication>
-//#include <QScreen>
-//#include <QTimer>
+// Include Gtk header files.
 
 // Include Magic Lantern header files.
 #ifdef WIN32
@@ -77,12 +74,6 @@ using namespace std;
 #include <mle/mlTypes.h>
 #include <mle/mlErrno.h>
 
-// Include Magic Lantern header files
-//#include "mle/mlTypes.h"
-//#include "mle/mlMalloc.h"
-//#include "mle/mlAssert.h"
-//#include "mle/mlErrno.h"
-
 // Include Magic Lantern Runtime Engine header files.
 #include <mle/MleDirector.h>
 #include <mle/MleEventDispatcher.h>
@@ -95,7 +86,6 @@ using namespace std;
 extern MleEventEntry g_eventTable[];
 extern int g_numEvents;
 extern MlBoolean initEnv(int, void **);
-//extern int mainLoop(const QGuiApplication &);
 extern int mainLoop(void);
 extern MlBoolean cleanupEnv(void);
 
@@ -130,7 +120,7 @@ static char *getCanonicalPath(char *path)
 // Parse command line options.
 int parseArgs(int argc, char *argv[], ArgStruct *args)
 {
-    /* Declare local variables. */
+    // Declare local variables.
     extern int optind;
 
     // Parse options here, if there are any.
@@ -148,15 +138,14 @@ int parseArgs(int argc, char *argv[], ArgStruct *args)
         }
     }
 
-    /* If there is no specified playprint, complain. */
+    // If there is no specified playprint, complain.
     if (args->playprint == NULL)
     {
         fprintf(stderr,"%s\n",usage_str);
         return FALSE;
     }
 
-    /* Having made it to here implies that we have good arguments. */
-
+    // Having made it to here implies that we have good arguments.
     return TRUE;
 }
 
@@ -171,9 +160,6 @@ int main(int argc, char *argv[])
     void *envArgv[4];
     void *playprint = NULL;
     int retValue;
-
-    // Initialize Qt application.
-    //QApplication app(argc, argv);
 
     // Parse remaining commandline arguments.
     ArgStruct args;
@@ -204,7 +190,6 @@ int main(int argc, char *argv[])
     //theStage->show();
 
     // Main execution loop.
-    //retValue = mainLoop(app);
     retValue = mainLoop();
 
     // Cleanup title environment.

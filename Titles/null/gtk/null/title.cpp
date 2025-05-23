@@ -11,7 +11,7 @@
 //
 // The MIT License (MIT)
 //
-// Copyright (c) 2022-2024 Wizzer Works
+// Copyright (c) 2022-2025 Wizzer Works
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -40,10 +40,7 @@
 //
 // COPYRIGHT_END
 
-// Include Qt header files.
-//#include <QApplication>
-//#include <QScreen>
-//#include <QTimer>
+// Include Gtk header files.
 
 // Include Magic Lantern header files
 #include <mle/mlTypes.h>
@@ -63,47 +60,11 @@
 // Include Digital Playprint header files.
 #include <mle/ppinput.h>
 
-// Platform data must match the Qt MLE Runtime Engine platform.
-//#include "mlPlatformData.h"
-
-// Include Magic Lantern Qt Parts header files.
-//#include "mle/qt/qtstage.h"
 // Include Open Inventor header files.
-#include <Inventor/Xt/SoXt.h>
+#include <Inventor/Gtk/SoGtk.h>
 
 // Include title header files.
 
-/*
-static MleQtPlatformData *
-initPlatform()
-{
-    // Declare local variables.
-    MleQtPlatformData* qtData;
-
-    // Allocate a platform specific data structure.
-    qtData = new MleQtPlatformData();
-
-    // Initialize the platform specific data
-    //    Load the playprint file name from a Qt resource.
-    //LoadString(hInstance,IDS_PLAYPRINT,
-    //     qtData->m_playprint,sizeof(qtData->m_playprint));
-
-    // Initialize input manager flags.
-    qtData->setKeyboardManager(MLE_INPUT_DEVICE_MANAGER_NOT_INSTANTIATED);
-    qtData->setMouseManager(MLE_INPUT_DEVICE_MANAGER_NOT_INSTANTIATED);
-    qtData->setJoystickManager(MLE_INPUT_DEVICE_MANAGER_NOT_INSTANTIATED);
-
-    // Todo: extract window style from Set properties.
-    //qtData->m_winStyle = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU |
-    //    WS_THICKFRAME | WS_MAXIMIZEBOX | WS_CLIPCHILDREN;
-
-    // Todo: extract window size from Set properties
-    qtData->m_defaultWinWidth = DEFAULT_VIEW_WIDTH;
-    qtData->m_defaultWinHeight = DEFAULT_VIEW_HEIGHT;
-
-    return(qtData);
-}
-*/
 
 // Initialize Magic Lantern Dispatch Manager.
 static MleEventDispatcher *initEventMgr(MleEventEntry *eventTable, int numEvents)
@@ -153,12 +114,6 @@ MlBoolean initEnv(int argc, void **argv)
     // Load the playprint.
     if (playprint != NULL)
         g_theTitle->m_dpp = mlLoadPlayprint(playprint, MLE_DPP_FINDPPLE);
-    /*
-    else
-        g_theTitle->m_dpp = mlLoadPlayprint(
-            ((MleQtPlatformData *)g_theTitle->m_platformData)->m_playprint,
-            MLE_DPP_FINDPPLE);
-    */
     // Todo: need to do something if playprint not specified.
 
     // Initialize scheduler.
@@ -184,8 +139,8 @@ MlBoolean initEnv(int argc, void **argv)
     //new MleIvStage();
     //((MleIvStage *)MleStage::g_theStage)->init();
 
-	// Initialize the platform data.
-	//g_theTitle->m_platformData = ((MleIvStage *)MleStage::g_theStage)->initPlatform();
+    // Initialize the platform data.
+    //g_theTitle->m_platformData = ((MleIvStage *)MleStage::g_theStage)->initPlatform();
 
     // Load the first group.
     //(void) mlLoadBootScene(g_workprint);
@@ -209,7 +164,6 @@ static void _processScheduledPhases(void)
 
 
 // Main loop of execution.
-//int mainLoop(const QGuiApplication &app)
 int mainLoop()
 {
     int status = 0;
@@ -269,7 +223,7 @@ MlBoolean cleanupEnv(void)
     delete g_theTitle->m_theEventMgr;
     mlFree(g_theTitle->m_platformData);
     //if (g_theTitle->m_titleData)
-    	// m_titleData is a callback function; can't delete it
+        // m_titleData is a callback function; can't delete it
         //delete g_theTitle->m_titleData;
     mlFree(g_theTitle);
 

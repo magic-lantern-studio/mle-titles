@@ -11,7 +11,7 @@
 // COPYRIGHT_BEGIN
 // The MIT License (MIT)
 //
-// Copyright (c) 2022 Wizzer Works
+// Copyright (c) 2022-2025 Wizzer Works
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -55,7 +55,7 @@
 MleEvent NULLTITLE_CLOSE_EVENT;
 
 //
-// Callbacks for Xt Messages.
+// Callbacks for Gtk Messages.
 int msgClose(MleEvent event,void *callData,void *clientData);
     
 #endif /* __CALLBACK_H_ */
