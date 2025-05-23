@@ -2,54 +2,61 @@ include(FindPackageHandleStandardArgs)
 include(SelectLibraryConfigurations)
 
 find_path(
-	MagicLantern_INCLUDE_DIR
-	NAMES mle/mle.h
-	PATHS /opt/MagicLantern/include
+  MagicLantern_INCLUDE_DIR
+  NAMES mle/mle.h
+  PATHS /opt/MagicLantern/include
 )
 find_library(
-	MagicLantern_LIBRARY_DEBUG
-	NAMES mlertd
-	PATHS /opt/MagicLantern/lib
-	PATH_SUFFIXES mle
+  MagicLantern_LIBRARY_DEBUG
+  NAMES mlertd
+  PATHS /opt/MagicLantern/lib
+  PATH_SUFFIXES mle mle/runtime
 )
 find_library(
-	MagicLantern_LIBRARY_RELEASE
-	NAMES mlert
-	PATHS /opt/MagicLantern/lib
-	PATH_SUFFIXES mle mle/rehearsal mle/runtime
+  MagicLantern_LIBRARY_RELEASE
+  NAMES mlert
+  PATHS /opt/MagicLantern/lib
+  PATH_SUFFIXES mle mle/runtime
 )
 select_library_configurations(MagicLantern)
 
 if(MagicLantern_INCLUDE_DIR AND EXISTS "${MagicLantern_INCLUDE_DIR}/mle/mlBasic.h")
-	file(STRINGS "${MagicLantern_INCLUDE_DIR}/mle/mlBasic.h" _MagicLantern_VERSION_DEFINE REGEX "[\t ]*#define[\t ]+MLE_VERSION[\t ]+\"[^\"]*\".*")
-	string(REGEX REPLACE "[\t ]*#define[\t ]+MLE_VERSION[\t ]+\"([^\"]*)\".*" "\\1" MagicLantern_VERSION "${_MagicLantern_VERSION_DEFINE}")
-	unset(_MagicLantern_VERSION_DEFINE)
+  file(STRINGS "${MagicLantern_INCLUDE_DIR}/mle/mlBasic.h" _MagicLantern_VERSION_DEFINE REGEX "[\t ]*#define[\t ]+MLE_VERSION[\t ]+\"[^\"]*\".*")
+  string(REGEX REPLACE "[\t ]*#define[\t ]+MLE_VERSION[\t ]+\"([^\"]*)\".*" "\\1" MagicLantern_VERSION "${_MagicLantern_VERSION_DEFINE}")
+  unset(_MagicLantern_VERSION_DEFINE)
 endif()
 
-set(MagicLantern_DEFINITIONS -DMLE_NOT_RUNTIME_DLL)
-set(MagicLantern_INCLUDE_DIRS ${MagicLantern_INCLUDE_DIR})
+set(MagicLantern_DEFINITIONS
+  MLE_DIGITAL_PLAYPRINT
+  MLE_NOT_UTIL_DLL
+  MLE_NOT_MATH_DLL
+  MLE_NOT_RUNTIME_DLL
+  MLE_NOT_IVSTAGE_DLL
+  MLE_NOT_2DSET_DLL)
+set(MagicLantern_INCLUDE_DIRS gen ${MagicLantern_INCLUDE_DIR})
 set(MagicLantern_LIBRARIES ${MagicLantern_LIBRARY})
 
 find_package_handle_standard_args(
-	MagicLantern
-	FOUND_VAR MagicLantern_FOUND
-	REQUIRED_VARS MagicLantern_INCLUDE_DIR MagicLantern_LIBRARY
-	VERSION_VAR MagicLantern_VERSION
+  MagicLantern
+  FOUND_VAR MagicLantern_FOUND
+  REQUIRED_VARS MagicLantern_INCLUDE_DIR MagicLantern_LIBRARY
+  VERSION_VAR MagicLantern_VERSION
 )
 
 if(MagicLantern_FOUND AND NOT TARGET MagicLantern::MagicLantern)
-	add_library(MagicLantern::MagicLantern UNKNOWN IMPORTED)
-	if(MagicLantern_LIBRARY_RELEASE)
-		set_property(TARGET MagicLantern::MagicLantern APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
-		set_target_properties(MagicLantern::MagicLantern PROPERTIES IMPORTED_LOCATION_RELEASE "${MagicLantern_LIBRARY_RELEASE}")
-	endif()
-	if(MagicLantern_LIBRARY_DEBUG)
-		set_property(TARGET MagicLantern::MagicLantern APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
-		set_target_properties(MagicLantern::MagicLantern PROPERTIES IMPORTED_LOCATION_DEBUG "${MagicLantern_LIBRARY_DEBUG}")
-	endif()
-	set_target_properties(MagicLantern::MagicLantern PROPERTIES INTERFACE_COMPILE_DEFINITIONS "COIN_DLL")
-	set_target_properties(MagicLantern::MagicLantern PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${MagicLantern_INCLUDE_DIRS}")
+  add_library(MagicLantern::MagicLantern UNKNOWN IMPORTED)
+  if(MagicLantern_LIBRARY_RELEASE)
+    set_property(TARGET MagicLantern::MagicLantern APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+    set_target_properties(MagicLantern::MagicLantern PROPERTIES IMPORTED_LOCATION_RELEASE "${MagicLantern_LIBRARY_RELEASE}")
+  endif()
+  if(MagicLantern_LIBRARY_DEBUG)
+    set_property(TARGET MagicLantern::MagicLantern APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
+    set_target_properties(MagicLantern::MagicLantern PROPERTIES IMPORTED_LOCATION_DEBUG "${MagicLantern_LIBRARY_DEBUG}")
+  endif()
+  set_target_properties(MagicLantern::MagicLantern PROPERTIES INTERFACE_COMPILE_DEFINITIONS "COIN_DLL")
+  set_target_properties(MagicLantern::MagicLantern PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${MagicLantern_INCLUDE_DIRS}")
 endif()
 
 mark_as_advanced(MagicLantern_DEFINITIONS)
 mark_as_advanced(MagicLantern_INCLUDE_DIR)
+mark_as_advanced(MagicLantern_LIBRARIES)

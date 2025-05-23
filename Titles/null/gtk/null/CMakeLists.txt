@@ -9,6 +9,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Specify where to find CMake modules
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 if(POLICY CMP0072)
@@ -20,8 +21,8 @@ endif()
 find_package(OpenGL REQUIRED)
 include(FindGTK2)
 find_package(GTK2 REQUIRED gtk)
-include(FindCoin)
-find_package(Coin REQUIRED)
+include(FindCoin3D)
+find_package(Coin3D REQUIRED)
 include(FindSoGtk)
 find_package(SoGtk REQUIRED)
 include(FindMagicLantern)
@@ -47,8 +48,16 @@ target_sources(
     title.cpp
   )
 
-# Specify the include directories
+# Specify the build environment
 if(MagicLantern_FOUND)
-  include_directories(${MagicLantern_INCLUDE_DIRS} ${Coin_INCLUDE_DIRS} ${SoGtk_INCLUDE_DIRS} ${GTK2_INCLUDE_DIRS})
-  target_link_libraries(null ${MagicLantern_LIBRARIES} ${Coin_LIBRARIES} ${SoGtk_LIBRARIES} ${GTK2_LIBRARIES})
+  message(STATUS "Magic Lantern Variables:")
+  message(STATUS "    COIN3D_INCLUDE_DIRS=" ${COIN3D_INCLUDE_DIRS})
+  message(STATUS "    COIN3D_LIBRARIES=" ${COIN3D_LIBRARIES})
+  message(STATUS "    SoGtk_INCLUDE_DIRS=" ${SoGtk_INCLUDE_DIRS})
+  message(STATUS "    SoGtk_LIBRARIES=" ${SoGtk_LIBRARIES})
+  message(STATUS "    MagicLantern_INCLUDE_DIRS=" ${MagicLantern_INCLUDE_DIRS})
+  message(STATUS "    MagicLantern_LIBRARIES=" ${MagicLantern_LIBRARIES})
+  include_directories(${MagicLantern_INCLUDE_DIRS} ${COIN3D_INCLUDE_DIRS} ${SoGtk_INCLUDE_DIRS} ${GTK2_INCLUDE_DIRS})
+  add_compile_definitions(${MagicLantern_DEFINITIONS})
+  target_link_libraries(null ${MagicLantern_LIBRARIES} ${COIN3D_LIBRARIES} ${SoGtk_LIBRARIES} ${GTK2_LIBRARIES})
 endif()

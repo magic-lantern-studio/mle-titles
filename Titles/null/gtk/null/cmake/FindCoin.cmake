@@ -2,26 +2,26 @@ include(FindPackageHandleStandardArgs)
 include(SelectLibraryConfigurations)
 
 find_path(
-	Coin_INCLUDE_DIR
-	NAMES Inventor/So.h
-	PATH_SUFFIXES Coin4 Coin3 Coin2
+  Coin_INCLUDE_DIR
+  NAMES Inventor/So.h
+  PATH_SUFFIXES Coin4 Coin3 Coin2
 )
 find_path(
-	Coin_FOREIGN_FILES_INCLUDE_DIR
-	NAMES ForeignFiles/SoForeignFileKit.h
-	PATH_SUFFIXES
-		Inventor/annex
-		Coin4/Inventor/annex
-		Coin3/Inventor/annex
-		Coin2/Inventor/annex
+  Coin_FOREIGN_FILES_INCLUDE_DIR
+  NAMES ForeignFiles/SoForeignFileKit.h
+  PATH_SUFFIXES
+    Inventor/annex
+    Coin4/Inventor/annex
+    Coin3/Inventor/annex
+    Coin2/Inventor/annex
 )
 find_library(
-	Coin_LIBRARY_DEBUG
-	NAMES Coind Coin4d Coin3d Coin2d
+  Coin_LIBRARY_DEBUG
+  NAMES Coind Coin4d Coin3d Coin2d
 )
 find_library(
-	Coin_LIBRARY_RELEASE
-	NAMES Coin Coin4 Coin3 Coin2
+  Coin_LIBRARY_RELEASE
+  NAMES Coin Coin4 Coin3 Coin2
 )
 select_library_configurations(Coin)
 
