@@ -167,43 +167,21 @@ static void _processScheduledPhases(void)
 int mainLoop()
 {
     int status = 0;
-
-#if 0
-    while(! QtStage::g_doExit) {
-        // Execute the scheduled phases in order of insertion.
-        g_theTitle->m_theScheduler->goAll();
-
-        // Process pending Qt events.
-        app.processEvents();
-
-        //qDebug() << "null Title: mainloop iteration.";
-    }
-#endif /* 0 */
-    // Get the application context for the stage.
-    XtAppContext appContext = SoXt::getAppContext();
+    gboolean doQuit;
 
     for (;;)
     {
-        // Check for events and dispatch them if found.
-        while (XtAppPending(appContext))
-        {
-            XEvent event;
-            SoXt::nextEvent(appContext, &event);
-            Boolean dispatched = SoXt::dispatchEvent(&event);
-        }
-#if 0
-        while (XtAppPending(appContext))
-            XtAppProcessEvent(appContext,XtIMAll);
-#endif /* 0 */
-
+        // Run one iteration of the main GTK loop. Do not block.
+        doQuit = gtk_main_iteration_do(FALSE);
+      
         // Process phases registered with the scheduler.
         _processScheduledPhases();
 
-        // Quit on title request.
-        if (g_theTitle->m_quit == ML_TRUE)
+	// Quit if event occurred.
+        if (doQuit)
             break;
     }
-
+    
     return status;
 }
 
