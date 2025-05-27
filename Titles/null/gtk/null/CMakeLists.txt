@@ -43,9 +43,11 @@ add_executable(null "")
 target_sources(
   null
   PRIVATE
-    callback.cpp
     main.cpp
+    callback.cpp
     title.cpp
+    gen/mlchunk.cxx
+    gen/mltables.cxx
   )
 
 # Specify the build environment
@@ -57,7 +59,33 @@ if(MagicLantern_FOUND)
   message(STATUS "    SoGtk_LIBRARIES=" ${SoGtk_LIBRARIES})
   message(STATUS "    MagicLantern_INCLUDE_DIRS=" ${MagicLantern_INCLUDE_DIRS})
   message(STATUS "    MagicLantern_LIBRARIES=" ${MagicLantern_LIBRARIES})
-  include_directories(${MagicLantern_INCLUDE_DIRS} ${COIN3D_INCLUDE_DIRS} ${SoGtk_INCLUDE_DIRS} ${GTK2_INCLUDE_DIRS})
-  add_compile_definitions(${MagicLantern_DEFINITIONS})
-  target_link_libraries(null ${MagicLantern_LIBRARIES} ${COIN3D_LIBRARIES} ${SoGtk_LIBRARIES} ${GTK2_LIBRARIES})
+  include_directories(
+    gen
+    $ENV{MLE_ROOT}/include
+    ${MagicLantern_INCLUDE_DIRS}
+    ${COIN3D_INCLUDE_DIRS}
+    ${SoGtk_INCLUDE_DIRS}
+    ${GTK2_INCLUDE_DIRS})
+  add_compile_definitions(
+    ${MagicLantern_DEFINITIONS}
+    MLE_DIGITAL_PLAYPRINT
+    MLE_NOT_UTIL_DLL
+    MLE_NOT_MATH_DLL
+    MLE_NOT_RUNTIME_DLL
+    MLE_NOT_IVSTAGE_DLL
+    MLE_NOT_2DSET_DLL)
+  target_link_options(null PRIVATE
+    -L$ENV{MLE_ROOT}/lib
+    -L$ENV{MLE_ROOT}/lib/mle/runtime)
+  target_link_libraries(null
+    $ENV{MLE_ROOT}/lib/mle/runtime/MleIvStage.so
+    $ENV{MLE_ROOT}/lib/mle/runtime/Mle2dSet.so
+    ${MagicLantern_LIBRARIES}
+    mlloaders
+    playprint
+    mlmath
+    mlutil
+    ${COIN3D_LIBRARIES}
+    ${SoGtk_LIBRARIES}
+    ${GTK2_LIBRARIES})
 endif()

@@ -1,6 +1,21 @@
 include(FindPackageHandleStandardArgs)
 include(SelectLibraryConfigurations)
 
+if (DEFINED ENV{MLE_ROOT})
+  message(STATUS "MLE_ROOT=" $ENV{MLE_ROOT})
+else()
+  message(STATUS "MLE_ROOT NOT SET")
+  set(ENV{MLE_ROOT} "/opt/MagicLantern")
+  message(STATUS "Using " $ENV{MLE_ROOT})
+endif()
+if (DEFINED ENV{MLE_WORKPRINTS})
+  message(STATUS "MLE_WORKPRINTS=" $ENV{MLE_WORKPRINTS})
+else()
+  message(STATUS "MLE_WORKPRINTS NOT SET")
+  set(ENV{MLE_ROOT} "/opt/MagicLantern/include/workprints")
+  message(STATUS "Using " $ENV{MLE_WORKPRINTS})
+endif()
+
 find_path(
   MagicLantern_INCLUDE_DIR
   NAMES mle/mle.h
@@ -16,6 +31,7 @@ find_library(
   MagicLantern_LIBRARY_RELEASE
   NAMES mlert
   PATHS /opt/MagicLantern/lib
+
   PATH_SUFFIXES mle mle/runtime
 )
 select_library_configurations(MagicLantern)
@@ -26,14 +42,8 @@ if(MagicLantern_INCLUDE_DIR AND EXISTS "${MagicLantern_INCLUDE_DIR}/mle/mlBasic.
   unset(_MagicLantern_VERSION_DEFINE)
 endif()
 
-set(MagicLantern_DEFINITIONS
-  MLE_DIGITAL_PLAYPRINT
-  MLE_NOT_UTIL_DLL
-  MLE_NOT_MATH_DLL
-  MLE_NOT_RUNTIME_DLL
-  MLE_NOT_IVSTAGE_DLL
-  MLE_NOT_2DSET_DLL)
-set(MagicLantern_INCLUDE_DIRS gen ${MagicLantern_INCLUDE_DIR})
+set(MagicLantern_DEFINITIONS)
+set(MagicLantern_INCLUDE_DIRS ${MagicLantern_INCLUDE_DIR})
 set(MagicLantern_LIBRARIES ${MagicLantern_LIBRARY})
 
 find_package_handle_standard_args(
@@ -41,7 +51,7 @@ find_package_handle_standard_args(
   FOUND_VAR MagicLantern_FOUND
   REQUIRED_VARS MagicLantern_INCLUDE_DIR MagicLantern_LIBRARY
   VERSION_VAR MagicLantern_VERSION
-)
+  )
 
 if(MagicLantern_FOUND AND NOT TARGET MagicLantern::MagicLantern)
   add_library(MagicLantern::MagicLantern UNKNOWN IMPORTED)
@@ -58,5 +68,5 @@ if(MagicLantern_FOUND AND NOT TARGET MagicLantern::MagicLantern)
 endif()
 
 mark_as_advanced(MagicLantern_DEFINITIONS)
-mark_as_advanced(MagicLantern_INCLUDE_DIR)
+mark_as_advanced(MagicLantern_INCLUDE_DIRS)
 mark_as_advanced(MagicLantern_LIBRARIES)
