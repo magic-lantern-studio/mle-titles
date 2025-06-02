@@ -4,8 +4,8 @@ cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
 # Project name and enable C++ support
 project(null VERSION 1.0.0 LANGUAGES CXX)
 
-# Require C++11
-set(CMAKE_CXX_STANDARD 11)
+# Require C++17
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -108,9 +108,9 @@ if(MagicLantern_FOUND)
   target_link_libraries(null
     nullTitle
     $ENV{MLE_ROOT}/lib/mle/runtime/MleIvStage.so
-    $ENV{MLE_ROOT}/lib/mle/runtime/Mle2dSet.so
     ${MagicLantern_LIBRARIES}
     nullTitle
+    $ENV{MLE_ROOT}/lib/mle/runtime/Mle2dSet.so
     mlloaders
     playprint
     mlmath
