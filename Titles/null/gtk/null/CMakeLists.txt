@@ -1,3 +1,36 @@
+# COPYRIGHT_BEGIN
+#
+# The MIT License (MIT)
+#
+# Copyright (c) 2025 Wizzer Works
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+#
+#  For information concerning this header file, contact Mark S. Millard,
+#  of Wizzer Works at msm@wizzerworks.com.
+#
+#  More information concerning Wizzer Works may be found at
+#
+#      http://www.wizzerworks.com
+#
+# COPYRIGHT_END
+
 # Stop if cmake version is below 3.0
 cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
 
@@ -11,6 +44,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Specify where to find CMake modules
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
+# Specify Debug postfix
+set(CMAKE_DEBUG_POSTFIX "d")
 
 if(POLICY CMP0072)
   # Get rid of OpenGL GLVND warning from CMake 3.11
@@ -107,16 +143,42 @@ if(MagicLantern_FOUND)
   # Specify the title executable link libraries
   target_link_libraries(null
     nullTitle
-    $ENV{MLE_ROOT}/lib/mle/runtime/MleIvStage.so
+    debug $ENV{MLE_ROOT}/lib/mle/runtime/MleIvStaged.so
+    optimized $ENV{MLE_ROOT}/lib/mle/runtime/MleIvStage.so
     ${MagicLantern_LIBRARIES}
     nullTitle
-    $ENV{MLE_ROOT}/lib/mle/runtime/Mle2dSet.so
-    mlloaders
-    playprint
-    mlmath
-    mlutil
+    debug $ENV{MLE_ROOT}/lib/mle/runtime/Mle2dSetd.so
+    optimized $ENV{MLE_ROOT}/lib/mle/runtime/Mle2dSet.so
+    debug mlloaders
+    optimized mlloaders
+    debug playprintd
+    optimized playprint
+    debug mlmathd
+    optimized mlmath
+    debug mlutild
+    optimized
     ${COIN3D_LIBRARIES}
     ${SoGtk_LIBRARIES}
     ${GTK2_LIBRARIES})
+
+  target_compile_options(nullTitle
+    PRIVATE
+      $<$<CONFIG:Debug>:-O0>
+      $<$<CONFIG:Release>:>)
+
+  target_compile_definitions(nullTitle
+    PRIVATE
+      $<$<CONFIG:Debug>: MLE_DEBUG>
+      $<$<CONFIG:Release>:>)
+
+  target_compile_options(null
+    PRIVATE
+      $<$<CONFIG:Debug>:-O0>
+      $<$<CONFIG:Release>:>)
+
+  target_compile_definitions(null
+    PRIVATE
+      $<$<CONFIG:Debug>: MLE_DEBUG>
+      $<$<CONFIG:Release>:>)
 
 endif()
